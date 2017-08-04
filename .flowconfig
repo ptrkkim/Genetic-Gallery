@@ -1,0 +1,15 @@
+[ignore]
+.*/__tests__/.*
+config
+coverage
+node_modules
+public
+scripts
+
+[include]
+
+[libs]
+
+[options]
+
+[lints]
