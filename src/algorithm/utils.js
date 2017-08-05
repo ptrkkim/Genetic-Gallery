@@ -5,10 +5,10 @@ export function clamp (min: number, max: number, value: number): number {
   return value;
 }
 
-export function mutateValBy(mutateAmt: number): number {
+export function mutateValBy(value: number, mutateAmt: number): number {
   let delta = 0;
   for (let i = 0; i < 4; i++) {
     delta += (Math.random() * mutateAmt * 2) - mutateAmt;
   }
-  return delta;
+  return value + delta;
 }
