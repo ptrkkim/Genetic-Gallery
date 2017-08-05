@@ -1,0 +1,14 @@
+// @flow
+export function clamp (min: number, max: number, value: number): number {
+  if (value < min) return min;
+  if (value > max) return max;
+  return value;
+}
+
+export function mutateValBy(mutateAmt: number): number {
+  let delta = 0;
+  for (let i = 0; i < 4; i++) {
+    delta += (Math.random() * mutateAmt * 2) - mutateAmt;
+  }
+  return delta;
+}
