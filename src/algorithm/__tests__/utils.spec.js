@@ -14,9 +14,10 @@ describe('utility functions', () => {
     expect(clamp(min, max, 100)).toBe(100);
   });
 
-  test.skip('mutateValBy returns a number within (mutateAmt) of original value', () => {
-    global.Math.random = jest.fn(trueRandom)
-      .mockReturnValueOnce(0)
-      .mockReturnValueOnce(1);
+  test('mutateValBy returns a number within (mutateAmt) of original value', () => {
+    global.Math.random = jest.fn(trueRandom).mockReturnValue(1);
+    expect(mutateValBy(0, 0.1)).toBe(0.4);
+    global.Math.random = jest.fn(trueRandom).mockReturnValue(0);
+    expect(mutateValBy(0, 0.1)).toBe(-0.4);
   });
 });

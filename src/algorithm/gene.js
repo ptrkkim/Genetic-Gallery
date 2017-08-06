@@ -2,10 +2,10 @@
 import { mutateValBy, clamp } from './utils';
 import type { Point } from './gene';
 
-export default function Gene (vertices: number, rgba?: number[], points?: Point[]) {
+export default function Gene (vertices: number = 3, rgba?: number[], points?: Point[]) {
+  this.vertices = vertices; // defaults to using triangles
   this.rgba = rgba || this.generateRgba();
   this.points = points || this.generatePoints();
-  this.vertices = vertices || 3; // defaults to using triangles
 }
 
 Gene.prototype.mutateColors = function (mutateChance: number, mutateAmount: number) {
