@@ -1,5 +1,5 @@
 {
-  "name": "portfolio",
+  "name": "genetic-gallery",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,7 +26,7 @@
     "eslint-plugin-react": "7.1.0",
     "extract-text-webpack-plugin": "2.1.2",
     "file-loader": "0.11.2",
-    "flow-bin": "^0.51.0",
+    "flow-bin": "^0.52.0",
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
