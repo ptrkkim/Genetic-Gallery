@@ -2,6 +2,8 @@
 import { mutateValBy, clamp } from './utils';
 import type { Point } from './gene';
 
+export const maxAlpha = 0.2;
+
 export default function Gene (vertices: number = 3, rgba?: number[], points?: Point[]) {
   this.vertices = vertices; // defaults to using triangles
   this.rgba = rgba || this.generateRgba();
@@ -18,10 +20,10 @@ Gene.prototype.mutateColors = function (mutateChance: number, mutateAmount: numb
 
 Gene.prototype.generateRgba = function (): number[] {
   return [
-    Math.random() * 255,
-    Math.random() * 255,
-    Math.random() * 255,
-    Math.max(Math.random() * Math.random(), 0.2),
+    Math.round(Math.random() * 255),
+    Math.round(Math.random() * 255),
+    Math.round(Math.random() * 255),
+    Math.max(Math.random() * Math.random(), maxAlpha),
   ];
 };
 
