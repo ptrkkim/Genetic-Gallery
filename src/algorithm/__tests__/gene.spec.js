@@ -1,4 +1,4 @@
-import Gene, { minAlpha, canvasDim } from '../gene';
+import { Gene, minAlpha, canvasDim } from '../gene';
 
 const compareArr = (arr1, arr2) => arr1.reduce((bool, e, i) => {
   const same = arr1[i] === arr2[i];
