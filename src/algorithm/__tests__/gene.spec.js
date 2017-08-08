@@ -1,4 +1,9 @@
-import Gene, { maxAlpha } from '../gene';
+import Gene, { minAlpha, canvasDim } from '../gene';
+
+const compareArr = (arr1, arr2) => arr1.reduce((bool, e, i) => {
+  const same = arr1[i] === arr2[i];
+  return bool && same;
+}, true);
 
 describe('Genes', () => {
   const rgbaSpy = jest.spyOn(Gene.prototype, 'generateRgba');
@@ -66,8 +71,8 @@ describe('Genes', () => {
     });
 
     test('and generates a random alpha value defining opacity', () => {
-      expect(testGene.rgba[3]).toBeGreaterThanOrEqual(0); // alpha value
-      expect(testGene.rgba[3]).toBeLessThanOrEqual(maxAlpha);
+      expect(testGene.rgba[3]).toBeGreaterThanOrEqual(minAlpha); // alpha value
+      expect(testGene.rgba[3]).toBeLessThanOrEqual(1);
     });
 
     // this is not a great test. too lenient with ranges
@@ -78,13 +83,71 @@ describe('Genes', () => {
       expect(testGene.points).toHaveLength(3);
 
       const checkAxes = (axis, index) => {
-        expect(testGene.points[index][axis]).toBeGreaterThanOrEqual(-0.5);
-        expect(testGene.points[index][axis]).toBeLessThanOrEqual(1.5);
+        expect(testGene.points[index][axis]).toBeGreaterThanOrEqual(-0.5 * canvasDim);
+        expect(testGene.points[index][axis]).toBeLessThanOrEqual(1.5 * canvasDim);
       };
 
       for (let i = 0; i < 3; i++) {
         Object.keys(testGene.points[i]).forEach(checkAxes);
       }
+    });
+  });
+
+  describe('mutate', () => {
+    const blackFill = [0, 0, 0, 0.5];
+    const whiteFill = [255, 255, 255, 0.5];
+    const testPoints = [
+      { x: 0, y: 0 },
+      { x: canvasDim, y: canvasDim },
+      { x: 0, y: canvasDim },
+    ];
+    const numTestGenes = 50;
+    let testBlack;
+    let testWhite;
+
+    const clone = arr => arr.map(obj => Object.assign({}, obj));
+    beforeEach(() => {
+      testBlack = Array(numTestGenes).fill('').map(() => new Gene(3, blackFill.slice(), clone(testPoints)));
+      testWhite = Array(numTestGenes).fill('').map(() => new Gene(3, whiteFill.slice(), clone(testPoints)));
+    });
+
+    describe('their colors properly', () => {
+      test('mutates rgba property on gene instance', () => {
+        for (let i = 0; i < numTestGenes; i++) {
+          expect(testBlack[i]).toHaveProperty('rgba', blackFill);
+          expect(testWhite[i]).toHaveProperty('rgba', whiteFill);
+
+          testBlack[i].mutateColors(1, 0.1);
+          testWhite[i].mutateColors(1, 0.1);
+
+          expect(testBlack[i].rgba).not.toEqual(blackFill);
+          expect(testWhite[i].rgba).not.toEqual(whiteFill);
+        }
+      });
+
+      test('mutates rgba values in-bounds', () => {
+        testBlack.forEach(gene => expect(gene.rgba).toEqual(blackFill));
+      });
+    });
+
+    describe('their points properly', () => {
+      test('maintains number of vertices', () => {
+        testBlack.forEach(gene => expect(gene.points).toHaveLength(testPoints.length));
+        testWhite.forEach(gene => expect(gene.points).toHaveLength(testPoints.length));
+      });
+
+      test('mutates points property on gene instance', () => {
+        for (let i = 0; i < numTestGenes; i++) {
+          expect(testWhite[i]).toHaveProperty('points', testPoints);
+          expect(testBlack[i]).toHaveProperty('points', testPoints);
+          testBlack[i].mutatePoints(1, 0.1);
+          testWhite[i].mutatePoints(1, 0.1);
+        }
+        const blkArrMutated = testBlack.some(gene => !compareArr(gene.points, testPoints));
+        const whtArrMutated = testWhite.some(gene => !compareArr(gene.points, testPoints));
+        expect(blkArrMutated).toBe(true);
+        expect(whtArrMutated).toBe(true);
+      });
     });
   });
 });
