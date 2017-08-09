@@ -12,3 +12,7 @@ export function mutateValBy(value: number, mutateAmt: number): number {
   }
   return value + delta;
 }
+
+export function getPixels(canvasCtx) {
+  return canvasCtx.getImageData(0, 0, canvasCtx.width, canvasCtx.height).data;
+}
