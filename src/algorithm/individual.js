@@ -10,7 +10,7 @@ export class Individual {
   fitness: number;
   dna: Gene[];
 
-  constructor (dna: Gene[], polygons: number, vertices?: number) {
+  constructor (polygons: number, vertices?: number, dna?: Gene[]) {
     this.numPolygons = polygons;
     this.verticesPerPolygon = vertices || 3;
     this.dna = dna || this.generate(polygons);
@@ -60,6 +60,7 @@ export class Individual {
 
     // use constant 4 b/c data looks like [r1, b1, g1, a1, r2, b2...]
     // finds pixel by pixel diff between two images
+    // finally, takes sum of squared diffs as percentage of max possible diff
     for (let i = 0; i < dimensions * 4; i++) {
       sumOfSquaredDiffs += ((refData[i] - fitData[i]) ** 2);
     }
