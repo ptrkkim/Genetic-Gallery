@@ -17,7 +17,7 @@ describe('Genes', () => {
     test('with property `vertices`, the number of points in the polygon', () => {
       for (let i = 3; i <= 10; i++) {
         const nPolygon = new Gene(i);
-        expect(nPolygon).toHaveProperty('vertices', i);
+        expect(nPolygon).toHaveProperty('numVertices', i);
         expect(nPolygon).toHaveProperty('points');
         expect(nPolygon.points).toHaveLength(i);
       }
@@ -32,7 +32,7 @@ describe('Genes', () => {
 
         const dummyRgba = [0, 0, 0, 0];
         const nPolygon = new Gene(i, dummyRgba, seedPoints);
-        expect(nPolygon).toHaveProperty('vertices', i);
+        expect(nPolygon).toHaveProperty('numVertices', i);
         expect(nPolygon).toHaveProperty('points', seedPoints);
         expect(nPolygon.points).toHaveLength(i);
       }

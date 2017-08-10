@@ -1,7 +1,11 @@
 // @flow
 /* eslint class-methods-use-this: 0 */
 import { mutateValBy, clamp } from './utils';
-import type { Point } from './geneTypes';
+
+type Point = {
+  x: number,
+  y: number
+};
 
 export const minAlpha = 0.2;
 export const canvasDim = 75; // later, import from canvas dimesion definition
@@ -11,8 +15,8 @@ export class Gene {
   rgba: number[];
   points: Point[];
 
-  constructor (vertices: number = 3, rgba?: number[], points?: Point[]) {
-    this.numVertices = vertices; // defaults to using triangles
+  constructor (numVertices: number = 3, rgba?: number[], points?: Point[]) {
+    this.numVertices = numVertices; // defaults to using triangles
     this.rgba = rgba || this.generateRgba();
     this.points = points || this.generatePoints();
   }
@@ -30,7 +34,7 @@ export class Gene {
     const xOrigin = Math.random() * canvasDim;
     const yOrigin = Math.random() * canvasDim;
 
-    return Array(this.vertices).fill('').map(() => {
+    return Array(this.numVertices).fill('').map(() => {
       const thisX = xOrigin + ((Math.random() - 0.5) * canvasDim);
       const thisY = yOrigin + ((Math.random() - 0.5) * canvasDim);
       return { x: thisX, y: thisY };
@@ -52,7 +56,7 @@ export class Gene {
   mutatePoints (mutateChance: number, mutPercent: number) {
     const multiplier = canvasDim;
     const mutateAmount = multiplier * mutPercent;
-    for (let i = 0; i < this.vertices; i++) {
+    for (let i = 0; i < this.numVertices; i++) {
       if (Math.random() < mutateChance) {
         const newX = clamp(0, canvasDim, mutateValBy(this.points[i].x, mutateAmount));
         const newY = clamp(0, canvasDim, mutateValBy(this.points[i].y, mutateAmount));
