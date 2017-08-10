@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash.clonedeep';
 import { Gene } from '../gene';
 import { Individual } from '../individual';
 
@@ -6,11 +7,13 @@ describe('Individuals', () => {
   const geneRgbaSpy = jest.spyOn(Gene.prototype, 'generateRgba');
   const genePointsSpy = jest.spyOn(Gene.prototype, 'generatePoints');
   let testImage;
-  const numPolygons = 50;
+  let numPolygons;
+  let numVertices;
 
   describe('can self-generate', () => {
     beforeEach(() => {
       jest.clearAllMocks();
+      numPolygons = 50;
       testImage = new Individual(numPolygons);
     });
 
@@ -39,8 +42,9 @@ describe('Individuals', () => {
   });
 
   describe('initialize when passed a dna value', () => {
-    const numVertices = 5;
     beforeEach(() => {
+      numVertices = 5;
+      numPolygons = 50;
       const dna50 = Array(numPolygons).fill('').map(() => new Gene(numVertices));
       jest.clearAllMocks();
       testImage = new Individual(numPolygons, numVertices, dna50);
@@ -71,7 +75,58 @@ describe('Individuals', () => {
   });
 
   describe('mutate', () => {
+    const individualMutateSpy = jest.spyOn(Individual.prototype, 'mutate');
+    const geneMutateRgbaSpy = jest.spyOn(Gene.prototype, 'mutateRgba');
+    const geneMutatePointsSpy = jest.spyOn(Gene.prototype, 'mutatePoints');
+    let mutateChance;
+    let mutatePercentage;
+    let originalDna;
+    let testImageCopy;
 
+    beforeEach(() => {
+      numVertices = 5;
+      numPolygons = 50;
+      jest.clearAllMocks();
+      originalDna = Array(numPolygons).fill('').map(() => new Gene(numVertices));
+      testImage = new Individual(numPolygons, numVertices, originalDna);
+      testImageCopy = cloneDeep(testImage);
+    });
+
+    test('using gene prototype methods mutateRgba and mutatePoints', () => {
+      mutateChance = 1;
+      mutatePercentage = 0.5;
+
+      testImage.mutate(mutateChance, mutatePercentage);
+      expect(individualMutateSpy).toHaveBeenCalledTimes(1);
+      expect(geneMutateRgbaSpy).toHaveBeenCalledTimes(numPolygons);
+      expect(geneMutatePointsSpy).toHaveBeenCalledTimes(numPolygons);
+    });
+
+    test('uses mutateChance to determine how often mutation will happen', () => {
+      mutateChance = 0;
+      mutatePercentage = 0.5;
+
+      expect(testImage.dna).toEqual(testImageCopy.dna);
+      testImage.mutate(mutateChance, mutatePercentage);
+      expect(testImage.dna).toEqual(testImageCopy.dna);
+
+      mutateChance = 1;
+      testImage.mutate(mutateChance, mutatePercentage);
+      expect(testImage.dna).not.toEqual(testImageCopy.dna);
+    });
+
+    test('uses mutatePercentage to determine how much to mutate values by', () => {
+      mutateChance = 1;
+      mutatePercentage = 0;
+
+      expect(testImage.dna).toEqual(testImageCopy.dna);
+      testImage.mutate(mutateChance, mutatePercentage);
+      expect(testImage.dna).toEqual(testImageCopy.dna);
+
+      mutatePercentage = 1;
+      testImage.mutate(mutateChance, mutatePercentage);
+      expect(testImage.dna).not.toEqual(testImageCopy.dna);
+    });
   });
 
   describe('calculate their fitness', () => {

@@ -27,7 +27,7 @@ export class Individual {
 
   mutate (mutateChance: number, mutatePercentage: number): void {
     for (let i = 0; i < this.dna.length; i++) {
-      this.dna[i].mutateColors(mutateChance, mutatePercentage);
+      this.dna[i].mutateRgba(mutateChance, mutatePercentage);
       this.dna[i].mutatePoints(mutateChance, mutatePercentage);
     }
   }

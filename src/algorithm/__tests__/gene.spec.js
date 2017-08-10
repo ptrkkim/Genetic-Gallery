@@ -117,8 +117,8 @@ describe('Genes', () => {
           expect(testBlack[i]).toHaveProperty('rgba', blackFill);
           expect(testWhite[i]).toHaveProperty('rgba', whiteFill);
 
-          testBlack[i].mutateColors(1, 0.1);
-          testWhite[i].mutateColors(1, 0.1);
+          testBlack[i].mutateRgba(1, 0.1);
+          testWhite[i].mutateRgba(1, 0.1);
 
           expect(testBlack[i].rgba).not.toEqual(blackFill);
           expect(testWhite[i].rgba).not.toEqual(whiteFill);

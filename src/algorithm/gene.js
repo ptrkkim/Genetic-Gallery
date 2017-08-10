@@ -35,22 +35,24 @@ export class Gene {
     const yOrigin = Math.random() * canvasDim;
 
     return Array(this.numVertices).fill('').map(() => {
-      const thisX = xOrigin + ((Math.random() - 0.5) * canvasDim);
-      const thisY = yOrigin + ((Math.random() - 0.5) * canvasDim);
+      const newX = xOrigin + ((Math.random() - 0.5) * canvasDim);
+      const newY = yOrigin + ((Math.random() - 0.5) * canvasDim);
+      const thisX = clamp(0, canvasDim, newX);
+      const thisY = clamp(0, canvasDim, newY);
       return { x: thisX, y: thisY };
     });
   }
 
-  mutateColors (mutateChance: number, mutPercent: number) {
+  mutateRgba (mutateChance: number, mutPercent: number) {
     const multiplier = 255;
     const rgbMutateAmount = multiplier * mutPercent; // rgb is range(0, 255)
     const aMutateAmount = mutPercent; // alpha is range(0, 1)
-    for (let i = 0; i < 3; i++) { // mutate RGB
-      if (Math.random() < mutateChance) {
+    if (Math.random() < mutateChance) {
+      for (let i = 0; i < 3; i++) { // mutate RGB
         this.rgba[i] = clamp(0, 255, Math.round(mutateValBy(this.rgba[i], rgbMutateAmount)));
       }
+      this.rgba[3] = clamp(0, 1, mutateValBy(this.rgba[3], aMutateAmount)); // mutate alpha
     }
-    this.rgba[3] = clamp(0, 1, mutateValBy(this.rgba[3], aMutateAmount)); // mutate alpha
   }
 
   mutatePoints (mutateChance: number, mutPercent: number) {
