@@ -32,7 +32,7 @@ export class Individual {
     }
   }
 
-  draw(ctx: *, width: number, height: number) {
+  draw(ctx: *, width: number, height: number): void {
     for (let i = 0; i < this.numPolygons; i++) {
       const polygon = this.dna[i];
       const points = polygon.points;
@@ -53,6 +53,8 @@ export class Individual {
   // use sum of squared differences for pixel by pixel comparison
   // higher the difference, worse the fitness
   calcFitness (referenceCanvas, fitnessCanvas): number {
+    if (!referenceCanvas || !fitnessCanvas) return 0; // placeholder until canvas logic done
+
     const dimensions = fitnessCanvas.width * fitnessCanvas.height;
     const refData = getPixels(referenceCanvas);
     const fitData = getPixels(fitnessCanvas);
