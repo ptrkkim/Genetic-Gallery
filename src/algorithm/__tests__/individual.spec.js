@@ -135,26 +135,31 @@ describe('Individuals', () => {
     const refCtx = refCanvas.getContext('2d');
     refCtx.fillStyle = 'rgba(0, 0, 0, 1)'; // black opaque
     refCtx.fillRect(0, 0, canvasWH, canvasWH);
-    const refData = refCtx.getImageData(0, 0, canvasWH, canvasWH).data;
 
     let fitCanvas;
     let fitCtx;
 
-    test('exactly matching images have the max fitness of 1', () => {
-      fitCanvas = document.createElement('canvas');
-      fitCtx = fitCanvas.getContext('2d');
-
-      const testGenes = [];
-      for (let i = 0; i < 10; i++) {
-        const opaqueBlackRgba = [0, 0, 0, 1];
+    const makeSquareGenes = (rgbaArr, numGenes) => {
+      const genes = [];
+      for (let i = 0; i < numGenes; i++) {
+        const rgba = rgbaArr.slice();
         const square = [
           { x: 0, y: 0 },
           { x: 0, y: canvasWH },
           { x: canvasWH, y: canvasWH },
           { x: canvasWH, y: 0 },
         ];
-        testGenes.push(new Gene(4, opaqueBlackRgba, square));
+        genes.push(new Gene(4, rgba, square));
       }
+      return genes;
+    };
+
+    test('exactly matching images have the max fitness of 1', () => {
+      fitCanvas = document.createElement('canvas');
+      fitCtx = fitCanvas.getContext('2d');
+
+      const opaqueBlack = [0, 0, 0, 1];
+      const testGenes = makeSquareGenes(opaqueBlack, 10);
       const testIndividual = new Individual(10, 4, testGenes);
       const fitness = testIndividual.calcFitness(refCtx, fitCtx, canvasWH);
       expect(fitness).toBe(1);
@@ -164,35 +169,16 @@ describe('Individuals', () => {
       const smallDiffCanvas = document.createElement('canvas');
       const smallDiffCtx = smallDiffCanvas.getContext('2d');
 
-      const smallDiffGenes = [];
-      for (let i = 0; i < 10; i++) {
-        const opaqueRedRgba = [255, 0, 0, 1];
-        const square = [
-          { x: 0, y: 0 },
-          { x: 0, y: canvasWH },
-          { x: canvasWH, y: canvasWH },
-          { x: canvasWH, y: 0 },
-        ];
-        smallDiffGenes.push(new Gene(4, opaqueRedRgba, square));
-      }
-
+      const opaqueRed = [255, 0, 0, 1];
+      const smallDiffGenes = makeSquareGenes(opaqueRed, 10);
       const bigDiffCanvas = document.createElement('canvas');
       const bigDiffCtx = bigDiffCanvas.getContext('2d');
 
-      const bigDiffGenes = [];
-      for (let i = 0; i < 10; i++) {
-        const opaquePurpleRgba = [255, 0, 255, 1];
-        const square = [
-          { x: 0, y: 0 },
-          { x: 0, y: canvasWH },
-          { x: canvasWH, y: canvasWH },
-          { x: canvasWH, y: 0 },
-        ];
-        bigDiffGenes.push(new Gene(4, opaquePurpleRgba, square));
-      }
+      const opaquePurple = [255, 0, 255, 1]; // red + blue max
+      const bigDiffGenes = makeSquareGenes(opaquePurple, 10);
 
-      const smallDiffIndividual = new Individual(10, 4, smallDiffGenes);
-      const bigDiffIndividual = new Individual(10, 4, bigDiffGenes);
+      const smallDiffIndividual = new Individual(10, 4, smallDiffGenes); // red
+      const bigDiffIndividual = new Individual(10, 4, bigDiffGenes); // red + blue
       const smallDiffFit = smallDiffIndividual.calcFitness(refCtx, smallDiffCtx, canvasWH);
       const bigDiffFit = bigDiffIndividual.calcFitness(refCtx, bigDiffCtx, canvasWH);
       expect(smallDiffFit).not.toBe(1);
@@ -207,27 +193,5 @@ describe('Individuals', () => {
 
   describe('can draw themselves to a canvas', () => {
 
-  });
-
-  describe('SAMPLE TESTS TO FIGURE OUT HOW TO TEST CANVAS', () => {
-    const testCanvas = document.createElement('CANVAS');
-    const canvasDim = 10;
-    testCanvas.id = 'testCanvas';
-    // testCanvas.width = canvasDim; // not necessary to set canvas image data
-    // testCanvas.height = canvasDim;
-
-    // don't actually need to append to dom to do canvas manipulations
-    // works just as well taking the canvas from the dom, though
-    // document.body.appendChild(testCanvas);
-    // const canvasInDom = document.getElementById('testCanvas');
-    const ctx = testCanvas.getContext('2d');
-    ctx.fillStyle = 'white'; // g[0, 128, 0, 255] blk[0, 0, 0, 255] wht[255, 255, 255, 255]
-    ctx.fillRect(0, 0, canvasDim, canvasDim);
-    expect(testCanvas).toBe(testCanvas);
-    // expect(canvasInDom.width).toBe(50);
-    const contextFromDom = testCanvas.getContext('2d');
-    const data = contextFromDom.getImageData(0, 0, canvasDim, canvasDim).data;
-    expect(data).toHaveLength(canvasDim * canvasDim * 4);
-    data.forEach(rgbaVal => expect(rgbaVal).toBe(255));
   });
 });
