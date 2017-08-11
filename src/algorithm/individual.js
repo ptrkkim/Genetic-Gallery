@@ -14,7 +14,7 @@ export class Individual {
     this.numPolygons = polygons;
     this.verticesPerPolygon = vertices || 3;
     this.dna = dna || this.generate(polygons);
-    this.fitness = this.calcFitness();
+    // this.fitness = this.calcFitness();
   }
 
   generate (numPolygons: number): Gene[] {
@@ -38,34 +38,37 @@ export class Individual {
       const points = polygon.points;
       const numVertices = polygon.numVertices;
       const [red, blue, green, alpha] = polygon.rgba;
-      const fillStyle = `rgba(${red},${blue},${green},${alpha})`;
+      const fillStyle = `rgba(${red}, ${blue}, ${green}, ${alpha})`;
 
       ctx.beginPath();
-      ctx.moveTo(points[0].x * width, points[0].y * height);
-      for (let j = 1; j < numVertices; i++) {
+      ctx.moveTo(points[0].x, points[0].y);
+      for (let j = 1; j < numVertices; j++) {
         ctx.lineTo(points[j].x, points[j].y);
       }
       ctx.closePath();
+
       ctx.fillStyle = fillStyle;
+      // ctx.rect(0, 0, width, height);
       ctx.fill();
     }
   }
   // use sum of squared differences for pixel by pixel comparison
   // higher the difference, worse the fitness
-  calcFitness (referenceCanvas, fitnessCanvas): number {
-    if (!referenceCanvas || !fitnessCanvas) return 0; // placeholder until canvas logic done
+  calcFitness (referenceCtx, fitnessCtx, widthHeight: number): number {
+    if (!referenceCtx || !fitnessCtx) return 0; // placeholder until canvas logic done
 
-    const dimensions = fitnessCanvas.width * fitnessCanvas.height;
-    const refData = getPixels(referenceCanvas);
-    const fitData = getPixels(fitnessCanvas);
+    this.draw(fitnessCtx, widthHeight, widthHeight);
+    const dimensions = widthHeight * widthHeight;
+    const refData = getPixels(referenceCtx, widthHeight);
+    const fitData = getPixels(fitnessCtx, widthHeight);
     let sumOfSquaredDiffs = 0;
 
     // use constant 4 b/c data looks like [r1, b1, g1, a1, r2, b2...]
     // finds pixel by pixel diff between two images
     // finally, takes sum of squared diffs as percentage of max possible diff
-    for (let i = 0; i < dimensions * 4; i++) {
-      sumOfSquaredDiffs += ((refData[i] - fitData[i]) ** 2);
+    for (let px = 0; px < dimensions * 4; px++) {
+      sumOfSquaredDiffs += ((refData[px] - fitData[px]) ** 2);
     }
-    return (1 - (sumOfSquaredDiffs / (dimensions * 4)));
+    return (1 - (sumOfSquaredDiffs / (dimensions * 4 * 256)));
   }
 }
