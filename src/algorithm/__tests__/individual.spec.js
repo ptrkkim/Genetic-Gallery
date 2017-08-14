@@ -160,7 +160,7 @@ describe('Individuals', () => {
       const opaqueBlack = [0, 0, 0, 1];
       const testGenes = makeIdenticalSquareGenes(opaqueBlack, 10, canvasWH);
       const testIndividual = new Individual(10, 4, testGenes);
-      testIndividual.draw(testCtx, canvasWH, canvasWH);
+      testIndividual.draw(testCtx);
 
       const newData = testCtx.getImageData(0, 0, canvasWH, canvasWH).data;
       expect(testCanvasData).not.toEqual(newData);
@@ -172,8 +172,8 @@ describe('Individuals', () => {
       const opaqueBlack = [0, 0, 0, 1];
       const topLeft = makeIdenticalSquareGenes(opaqueBlack, 10, canvasWH / 2);
       const testIndividual = new Individual(10, 4, topLeft);
-      testIndividual.draw(testCtx, canvasWH, canvasWH);
-      
+      testIndividual.draw(testCtx);
+
       const wholeAfterDraw = testCtx.getImageData(0, 0, canvasWH, canvasWH).data;
       const topLeftAfterDraw = testCtx.getImageData(0, 0, canvasWH / 2, canvasWH / 2).data;
       const botRightAfterDraw = testCtx.getImageData(canvasWH / 2, canvasWH / 2, canvasWH, canvasWH).data;
@@ -224,10 +224,5 @@ describe('Individuals', () => {
       expect(bigDiffFit).not.toBe(1);
       expect(smallDiffFit).toBeGreaterThan(bigDiffFit);
     });
-
-    test('using sum of squared differences', () => {
-
-    });
   });
-
 });

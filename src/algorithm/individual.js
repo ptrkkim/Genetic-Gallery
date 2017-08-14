@@ -32,7 +32,7 @@ export class Individual {
     }
   }
 
-  draw(ctx: *, width: number, height: number): void {
+  draw(ctx: CanvasRenderingContext2D): void {
     for (let i = 0; i < this.numPolygons; i++) {
       const polygon = this.dna[i];
       const points = polygon.points;
@@ -48,13 +48,16 @@ export class Individual {
       ctx.closePath();
 
       ctx.fillStyle = fillStyle;
-      // ctx.rect(0, 0, width, height);
       ctx.fill();
     }
   }
   // use sum of squared differences for pixel by pixel comparison
   // higher the difference, worse the fitness
-  calcFitness (referenceCtx, fitnessCtx, widthHeight: number): number {
+  calcFitness (
+    referenceCtx: CanvasRenderingContext2D,
+    fitnessCtx: CanvasRenderingContext2D,
+    widthHeight: number,
+  ): number {
     if (!referenceCtx || !fitnessCtx) return 0; // placeholder until canvas logic done
 
     this.draw(fitnessCtx, widthHeight, widthHeight);
