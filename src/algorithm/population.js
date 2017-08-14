@@ -25,7 +25,7 @@ export class Population {
     this.mutateChance = mutateChance;
     this.mutateAmount = mutateAmount;
     this.individuals = this.initialize(size);
-    this.fitnesses = this.getAllFitnesses(refCtx, fitCtx, canvasWH);
+    // this.fitnesses = this.getAllFitnesses(refCtx, fitCtx, canvasWH);
   }
 
   initialize (size: number): Individual[] {
@@ -43,7 +43,7 @@ export class Population {
       evolvedPop.push(this.haveChild());
     }
     this.individuals = evolvedPop;
-    this.fitnesses = evolvedPop.getAllFitnesses(refCtx, fitCtx, canvasWH);
+    // this.fitnesses = evolvedPop.getAllFitnesses(refCtx, fitCtx, canvasWH);
   }
 
   haveChild () {
