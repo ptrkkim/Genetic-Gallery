@@ -2,6 +2,21 @@ import cloneDeep from 'lodash.clonedeep';
 import { Gene } from '../gene';
 import { Individual } from '../individual';
 
+const makeIdenticalSquareGenes = (rgbaArr, numGenes, canvasWH) => {
+  const genes = [];
+  for (let i = 0; i < numGenes; i++) {
+    const rgba = rgbaArr.slice();
+    const square = [
+      { x: 0, y: 0 },
+      { x: 0, y: canvasWH },
+      { x: canvasWH, y: canvasWH },
+      { x: canvasWH, y: 0 },
+    ];
+    genes.push(new Gene(4, rgba, square));
+  }
+  return genes;
+};
+
 describe('Individuals', () => {
   const generateIndividualSpy = jest.spyOn(Individual.prototype, 'generate');
   const geneRgbaSpy = jest.spyOn(Gene.prototype, 'generateRgba');
@@ -129,9 +144,48 @@ describe('Individuals', () => {
     });
   });
 
+  describe('can draw themselves to a canvas', () => {
+    const canvasWH = 10;
+    const testCanvas = document.createElement('canvas');
+    const testCtx = testCanvas.getContext('2d');
+    testCtx.fillStyle = 'rgba(255, 255, 255, 1)'; // white opaque
+    testCtx.fillRect(0, 0, canvasWH, canvasWH);
+
+    const testCanvasData = testCtx.getImageData(0, 0, canvasWH, canvasWH).data;
+
+    beforeEach(() => {
+      testCtx.clearRect(0, 0, canvasWH, canvasWH);
+    });
+    test('modifies the canvas passed to draw method', () => {
+      const opaqueBlack = [0, 0, 0, 1];
+      const testGenes = makeIdenticalSquareGenes(opaqueBlack, 10, canvasWH);
+      const testIndividual = new Individual(10, 4, testGenes);
+      testIndividual.draw(testCtx, canvasWH, canvasWH);
+
+      const newData = testCtx.getImageData(0, 0, canvasWH, canvasWH).data;
+      expect(testCanvasData).not.toEqual(newData);
+    });
+
+    test('fills the canvas with polygons specified by the genes', () => {
+      const topLeftOriginal = testCtx.getImageData(0, 0, canvasWH / 2, canvasWH / 2).data;
+      const botRightOriginal = testCtx.getImageData(canvasWH / 2, canvasWH / 2, canvasWH, canvasWH).data;
+      const opaqueBlack = [0, 0, 0, 1];
+      const topLeft = makeIdenticalSquareGenes(opaqueBlack, 10, canvasWH / 2);
+      const testIndividual = new Individual(10, 4, topLeft);
+      testIndividual.draw(testCtx, canvasWH, canvasWH);
+      
+      const wholeAfterDraw = testCtx.getImageData(0, 0, canvasWH, canvasWH).data;
+      const topLeftAfterDraw = testCtx.getImageData(0, 0, canvasWH / 2, canvasWH / 2).data;
+      const botRightAfterDraw = testCtx.getImageData(canvasWH / 2, canvasWH / 2, canvasWH, canvasWH).data;
+      expect(testCanvasData).not.toEqual(wholeAfterDraw);
+      expect(topLeftOriginal).not.toEqual(topLeftAfterDraw);
+      expect(botRightOriginal).toEqual(botRightAfterDraw);
+    });
+  });
+
   describe('calculate their fitness', () => {
     const canvasWH = 10;
-    const refCanvas = document.createElement('CANVAS');
+    const refCanvas = document.createElement('canvas');
     const refCtx = refCanvas.getContext('2d');
     refCtx.fillStyle = 'rgba(0, 0, 0, 1)'; // black opaque
     refCtx.fillRect(0, 0, canvasWH, canvasWH);
@@ -139,27 +193,12 @@ describe('Individuals', () => {
     let fitCanvas;
     let fitCtx;
 
-    const makeSquareGenes = (rgbaArr, numGenes) => {
-      const genes = [];
-      for (let i = 0; i < numGenes; i++) {
-        const rgba = rgbaArr.slice();
-        const square = [
-          { x: 0, y: 0 },
-          { x: 0, y: canvasWH },
-          { x: canvasWH, y: canvasWH },
-          { x: canvasWH, y: 0 },
-        ];
-        genes.push(new Gene(4, rgba, square));
-      }
-      return genes;
-    };
-
     test('exactly matching images have the max fitness of 1', () => {
       fitCanvas = document.createElement('canvas');
       fitCtx = fitCanvas.getContext('2d');
 
       const opaqueBlack = [0, 0, 0, 1];
-      const testGenes = makeSquareGenes(opaqueBlack, 10);
+      const testGenes = makeIdenticalSquareGenes(opaqueBlack, 10, canvasWH);
       const testIndividual = new Individual(10, 4, testGenes);
       const fitness = testIndividual.calcFitness(refCtx, fitCtx, canvasWH);
       expect(fitness).toBe(1);
@@ -168,19 +207,19 @@ describe('Individuals', () => {
     test('fitness decreases with increasing disparity from the reference', () => {
       const smallDiffCanvas = document.createElement('canvas');
       const smallDiffCtx = smallDiffCanvas.getContext('2d');
-
-      const opaqueRed = [255, 0, 0, 1];
-      const smallDiffGenes = makeSquareGenes(opaqueRed, 10);
       const bigDiffCanvas = document.createElement('canvas');
       const bigDiffCtx = bigDiffCanvas.getContext('2d');
 
+      const opaqueRed = [255, 0, 0, 1];
+      const smallDiffGenes = makeIdenticalSquareGenes(opaqueRed, 10, canvasWH);
       const opaquePurple = [255, 0, 255, 1]; // red + blue max
-      const bigDiffGenes = makeSquareGenes(opaquePurple, 10);
+      const bigDiffGenes = makeIdenticalSquareGenes(opaquePurple, 10, canvasWH);
 
       const smallDiffIndividual = new Individual(10, 4, smallDiffGenes); // red
       const bigDiffIndividual = new Individual(10, 4, bigDiffGenes); // red + blue
       const smallDiffFit = smallDiffIndividual.calcFitness(refCtx, smallDiffCtx, canvasWH);
       const bigDiffFit = bigDiffIndividual.calcFitness(refCtx, bigDiffCtx, canvasWH);
+
       expect(smallDiffFit).not.toBe(1);
       expect(bigDiffFit).not.toBe(1);
       expect(smallDiffFit).toBeGreaterThan(bigDiffFit);
@@ -191,7 +230,4 @@ describe('Individuals', () => {
     });
   });
 
-  describe('can draw themselves to a canvas', () => {
-
-  });
 });
