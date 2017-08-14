@@ -14,7 +14,6 @@ export class Individual {
     this.numPolygons = polygons;
     this.verticesPerPolygon = vertices || 3;
     this.dna = dna || this.generate(polygons);
-    // this.fitness = this.calcFitness();
   }
 
   generate (numPolygons: number): Gene[] {
@@ -60,7 +59,7 @@ export class Individual {
   ): number {
     if (!referenceCtx || !fitnessCtx) return 0; // placeholder until canvas logic done
 
-    this.draw(fitnessCtx, widthHeight, widthHeight);
+    this.draw(fitnessCtx);
     const dimensions = widthHeight * widthHeight;
     const refData = getPixels(referenceCtx, widthHeight);
     const fitData = getPixels(fitnessCtx, widthHeight);

@@ -1,4 +1,5 @@
 // @flow
+import cloneDeep from 'lodash.clonedeep';
 import { Individual } from './individual';
 
 export class Population {
@@ -24,7 +25,7 @@ export class Population {
     this.mutateChance = mutateChance;
     this.mutateAmount = mutateAmount;
     this.individuals = this.initialize(size);
-    this.fitnesses = this.getAllFitnesses();
+    // this.fitnesses = this.getAllFitnesses(refCtx, fitCtx, canvasWH);
   }
 
   initialize (size: number): Individual[] {
@@ -32,12 +33,29 @@ export class Population {
       .map(() => new Individual(this.polygonsPer, this.numVertices));
   }
 
-  getAllFitnesses (): number[] {
-    return this.individuals.map(individual => individual.fitness);
+  getAllFitnesses (refCtx: CanvasRenderingContext2D, fitCtx: CanvasRenderingContext2D, canvasWH: number): number[] {
+    return this.individuals.map(individual => individual.calcFitness(refCtx, fitCtx, canvasWH));
   }
 
   createNextGen () {
+    const evolvedPop = [];
+    while (evolvedPop.length < this.individuals.length) {
+      evolvedPop.push(this.haveChild());
+    }
+    this.individuals = evolvedPop;
+    // this.fitnesses = evolvedPop.getAllFitnesses(refCtx, fitCtx, canvasWH);
+  }
 
+  haveChild () {
+    const mom = this.rouletteSelect();
+    const dad = this.rouletteSelect();
+    const parentToClone = Math.random() < 0.5 ? mom : dad;
+    const possiblyCrossed = Math.random() < this.crossoverChance
+      ? this.crossover(mom, dad)
+      : cloneDeep(parentToClone);
+
+    possiblyCrossed.mutate(this.mutateChance, this.mutateAmount);
+    return possiblyCrossed;
   }
 
   rouletteSelect (): Individual {

@@ -13,6 +13,6 @@ export function mutateValBy(value: number, mutateAmt: number): number {
   return value + delta;
 }
 
-export function getPixels(canvasCtx, dimensions) {
+export function getPixels(canvasCtx: CanvasRenderingContext2D, dimensions: number) {
   return canvasCtx.getImageData(0, 0, dimensions, dimensions).data;
 }
