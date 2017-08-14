@@ -17,7 +17,7 @@ describe('Genes', () => {
     test('with property `vertices`, the number of points in the polygon', () => {
       for (let i = 3; i <= 10; i++) {
         const nPolygon = new Gene(i);
-        expect(nPolygon).toHaveProperty('vertices', i);
+        expect(nPolygon).toHaveProperty('numVertices', i);
         expect(nPolygon).toHaveProperty('points');
         expect(nPolygon.points).toHaveLength(i);
       }
@@ -32,7 +32,7 @@ describe('Genes', () => {
 
         const dummyRgba = [0, 0, 0, 0];
         const nPolygon = new Gene(i, dummyRgba, seedPoints);
-        expect(nPolygon).toHaveProperty('vertices', i);
+        expect(nPolygon).toHaveProperty('numVertices', i);
         expect(nPolygon).toHaveProperty('points', seedPoints);
         expect(nPolygon.points).toHaveLength(i);
       }
@@ -117,8 +117,8 @@ describe('Genes', () => {
           expect(testBlack[i]).toHaveProperty('rgba', blackFill);
           expect(testWhite[i]).toHaveProperty('rgba', whiteFill);
 
-          testBlack[i].mutateColors(1, 0.1);
-          testWhite[i].mutateColors(1, 0.1);
+          testBlack[i].mutateRgba(1, 0.1);
+          testWhite[i].mutateRgba(1, 0.1);
 
           expect(testBlack[i].rgba).not.toEqual(blackFill);
           expect(testWhite[i].rgba).not.toEqual(whiteFill);

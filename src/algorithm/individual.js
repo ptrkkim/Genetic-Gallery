@@ -10,11 +10,11 @@ export class Individual {
   fitness: number;
   dna: Gene[];
 
-  constructor (dna: Gene[], polygons: number, vertices?: number) {
+  constructor (polygons: number, vertices?: number, dna?: Gene[]) {
     this.numPolygons = polygons;
     this.verticesPerPolygon = vertices || 3;
     this.dna = dna || this.generate(polygons);
-    this.fitness = this.calcFitness();
+    // this.fitness = this.calcFitness();
   }
 
   generate (numPolygons: number): Gene[] {
@@ -27,42 +27,51 @@ export class Individual {
 
   mutate (mutateChance: number, mutatePercentage: number): void {
     for (let i = 0; i < this.dna.length; i++) {
-      this.dna[i].mutateColors(mutateChance, mutatePercentage);
+      this.dna[i].mutateRgba(mutateChance, mutatePercentage);
       this.dna[i].mutatePoints(mutateChance, mutatePercentage);
     }
   }
 
-  draw(ctx: *, width: number, height: number) {
+  draw(ctx: CanvasRenderingContext2D): void {
     for (let i = 0; i < this.numPolygons; i++) {
       const polygon = this.dna[i];
       const points = polygon.points;
       const numVertices = polygon.numVertices;
       const [red, blue, green, alpha] = polygon.rgba;
-      const fillStyle = `rgba(${red},${blue},${green},${alpha})`;
+      const fillStyle = `rgba(${red}, ${blue}, ${green}, ${alpha})`;
 
       ctx.beginPath();
-      ctx.moveTo(points[0].x * width, points[0].y * height);
-      for (let j = 1; j < numVertices; i++) {
+      ctx.moveTo(points[0].x, points[0].y);
+      for (let j = 1; j < numVertices; j++) {
         ctx.lineTo(points[j].x, points[j].y);
       }
       ctx.closePath();
+
       ctx.fillStyle = fillStyle;
       ctx.fill();
     }
   }
   // use sum of squared differences for pixel by pixel comparison
   // higher the difference, worse the fitness
-  calcFitness (referenceCanvas, fitnessCanvas): number {
-    const dimensions = fitnessCanvas.width * fitnessCanvas.height;
-    const refData = getPixels(referenceCanvas);
-    const fitData = getPixels(fitnessCanvas);
+  calcFitness (
+    referenceCtx: CanvasRenderingContext2D,
+    fitnessCtx: CanvasRenderingContext2D,
+    widthHeight: number,
+  ): number {
+    if (!referenceCtx || !fitnessCtx) return 0; // placeholder until canvas logic done
+
+    this.draw(fitnessCtx, widthHeight, widthHeight);
+    const dimensions = widthHeight * widthHeight;
+    const refData = getPixels(referenceCtx, widthHeight);
+    const fitData = getPixels(fitnessCtx, widthHeight);
     let sumOfSquaredDiffs = 0;
 
     // use constant 4 b/c data looks like [r1, b1, g1, a1, r2, b2...]
     // finds pixel by pixel diff between two images
-    for (let i = 0; i < dimensions * 4; i++) {
-      sumOfSquaredDiffs += ((refData[i] - fitData[i]) ** 2);
+    // finally, takes sum of squared diffs as percentage of max possible diff
+    for (let px = 0; px < dimensions * 4; px++) {
+      sumOfSquaredDiffs += ((refData[px] - fitData[px]) ** 2);
     }
-    return (1 - (sumOfSquaredDiffs / (dimensions * 4)));
+    return (1 - (sumOfSquaredDiffs / (dimensions * 4 * 256)));
   }
 }
