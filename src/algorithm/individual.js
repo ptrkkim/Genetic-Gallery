@@ -59,6 +59,7 @@ export class Individual {
   ): number {
     if (!referenceCtx || !fitnessCtx) return 0; // placeholder until canvas logic done
 
+    fitnessCtx.clearRect(0, 0, widthHeight, widthHeight);
     this.draw(fitnessCtx);
     const dimensions = widthHeight * widthHeight;
     const refData = getPixels(referenceCtx, widthHeight);
@@ -71,6 +72,7 @@ export class Individual {
     for (let px = 0; px < dimensions * 4; px++) {
       sumOfSquaredDiffs += ((refData[px] - fitData[px]) ** 2);
     }
+
     return (1 - (sumOfSquaredDiffs / (dimensions * 4 * 256)));
   }
 }

@@ -8,7 +8,7 @@ type Point = {
 };
 
 export const minAlpha = 0.2;
-export const canvasDim = 10; // later, import from canvas dimesion definition
+export const canvasDim = 300; // later, import from canvas dimesion definition
 
 export class Gene {
   numVertices: number;

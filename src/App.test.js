@@ -8,16 +8,19 @@
 // });
 
 // basic smoke test to ensure component renders at all
+
 import React from 'react';
 import { shallow } from 'enzyme';
 import App from './App';
 
-it('renders without crashing', () => {
-  shallow(<App />);
-});
+describe.skip('boilerplate tests', () => {
+  it('renders without crashing', () => {
+    shallow(<App />);
+  });
 
-it('renders welcome message', () => {
-  const wrapper = shallow(<App />);
-  const welcome = <h2>Welcome to React</h2>
-  expect(wrapper.contains(welcome)).toEqual(true);
+  it('renders welcome message', () => {
+    const wrapper = shallow(<App />);
+    const welcome = <h2>Welcome to React</h2>
+    expect(wrapper.contains(welcome)).toEqual(true);
+  });
 });

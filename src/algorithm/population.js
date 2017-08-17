@@ -10,6 +10,10 @@ export class Population {
   crossoverChance: number;
   mutateChance: number;
   mutateAmount: number;
+  refCtx: CanvasRenderingContext2D;
+  fitCtx: CanvasRenderingContext2D;
+  outCtx: CanvasRenderingContext2D;
+  canvasWH: number;
 
   constructor (
     size: number,
@@ -18,6 +22,9 @@ export class Population {
     crossoverChance: number,
     mutateChance: number,
     mutateAmount: number,
+    refCtx: CanvasRenderingContext2D,
+    fitCtx: CanvasRenderingContext2D,
+    outCtx: CanvasRenderingContext2D,
   ) {
     this.polygonsPer = polygonsPer;
     this.numVertices = numVertices;
@@ -25,7 +32,11 @@ export class Population {
     this.mutateChance = mutateChance;
     this.mutateAmount = mutateAmount;
     this.individuals = this.initialize(size);
-    // this.fitnesses = this.getAllFitnesses(refCtx, fitCtx, canvasWH);
+    this.refCtx = refCtx;
+    this.fitCtx = fitCtx;
+    this.outCtx = outCtx;
+    this.canvasWH = 300;
+    this.fitnesses = this.getAllFitnesses(this.canvasWH);
   }
 
   initialize (size: number): Individual[] {
@@ -33,8 +44,9 @@ export class Population {
       .map(() => new Individual(this.polygonsPer, this.numVertices));
   }
 
-  getAllFitnesses (refCtx: CanvasRenderingContext2D, fitCtx: CanvasRenderingContext2D, canvasWH: number): number[] {
-    return this.individuals.map(individual => individual.calcFitness(refCtx, fitCtx, canvasWH));
+  getAllFitnesses (canvasWH: number): number[] {
+    return this.individuals
+      .map(individual => individual.calcFitness(this.refCtx, this.fitCtx, canvasWH));
   }
 
   createNextGen () {
@@ -43,7 +55,7 @@ export class Population {
       evolvedPop.push(this.haveChild());
     }
     this.individuals = evolvedPop;
-    // this.fitnesses = evolvedPop.getAllFitnesses(refCtx, fitCtx, canvasWH);
+    this.fitnesses = this.getAllFitnesses(this.canvasWH);
   }
 
   haveChild () {
