@@ -6,6 +6,8 @@ export default () => (
   <main>
     <Switch>
       <Route path="/" component={Intro} />
+      <Route path="/create" component={Intro} />
+      <Route path="/learn" component={Intro} />
     </Switch>
   </main>
 );
