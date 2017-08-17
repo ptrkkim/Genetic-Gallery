@@ -1,7 +1,11 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import Intro from './Intro';
 
 export default () => (
-  <p className="App-intro">
-    To get started, edit <code>src/App.js</code> and save to reload.
-  </p>
+  <main>
+    <Switch>
+      <Route path="/" component={Intro} />
+    </Switch>
+  </main>
 );
