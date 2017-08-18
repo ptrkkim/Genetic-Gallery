@@ -31,7 +31,7 @@ export class Individual {
     }
   }
 
-  draw(ctx: CanvasRenderingContext2D): void {
+  draw(ctx: CanvasRenderingContext2D, resolution: number): void {
     for (let i = 0; i < this.numPolygons; i++) {
       const polygon = this.dna[i];
       const points = polygon.points;
@@ -40,9 +40,9 @@ export class Individual {
       const fillStyle = `rgba(${red}, ${blue}, ${green}, ${alpha})`;
 
       ctx.beginPath();
-      ctx.moveTo(points[0].x, points[0].y);
+      ctx.moveTo(points[0].x * resolution, points[0].y * resolution);
       for (let j = 1; j < numVertices; j++) {
-        ctx.lineTo(points[j].x, points[j].y);
+        ctx.lineTo(points[j].x * resolution, points[j].y * resolution);
       }
       ctx.closePath();
 
@@ -55,15 +55,15 @@ export class Individual {
   calcFitness (
     referenceCtx: CanvasRenderingContext2D,
     fitnessCtx: CanvasRenderingContext2D,
-    widthHeight: number,
+    resolution: number,
   ): number {
     if (!referenceCtx || !fitnessCtx) return 0; // placeholder until canvas logic done
 
-    fitnessCtx.clearRect(0, 0, widthHeight, widthHeight);
-    this.draw(fitnessCtx);
-    const dimensions = widthHeight * widthHeight;
-    const refData = getPixels(referenceCtx, widthHeight);
-    const fitData = getPixels(fitnessCtx, widthHeight);
+    fitnessCtx.clearRect(0, 0, resolution, resolution);
+    this.draw(fitnessCtx, resolution);
+    const dimensions = resolution * resolution;
+    const refData = getPixels(referenceCtx, resolution);
+    const fitData = getPixels(fitnessCtx, resolution);
     let sumOfSquaredDiffs = 0;
 
     // use constant 4 b/c data looks like [r1, b1, g1, a1, r2, b2...]

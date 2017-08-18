@@ -13,7 +13,7 @@ export class Population {
   refCtx: CanvasRenderingContext2D;
   fitCtx: CanvasRenderingContext2D;
   outCtx: CanvasRenderingContext2D;
-  canvasWH: number;
+  resolution: number;
 
   constructor (
     size: number,
@@ -35,8 +35,8 @@ export class Population {
     this.refCtx = refCtx;
     this.fitCtx = fitCtx;
     this.outCtx = outCtx;
-    this.canvasWH = 300;
-    this.fitnesses = this.getAllFitnesses(this.canvasWH);
+    this.resolution = 75; // hardcode internal resolution for fitness calc
+    this.fitnesses = this.getAllFitnesses(this.resolution);
   }
 
   initialize (size: number): Individual[] {
@@ -44,9 +44,9 @@ export class Population {
       .map(() => new Individual(this.polygonsPer, this.numVertices));
   }
 
-  getAllFitnesses (canvasWH: number): number[] {
+  getAllFitnesses (resolution: number): number[] {
     return this.individuals
-      .map(individual => individual.calcFitness(this.refCtx, this.fitCtx, canvasWH));
+      .map(individual => individual.calcFitness(this.refCtx, this.fitCtx, resolution));
   }
 
   createNextGen () {
@@ -55,7 +55,7 @@ export class Population {
       evolvedPop.push(this.haveChild());
     }
     this.individuals = evolvedPop;
-    this.fitnesses = this.getAllFitnesses(this.canvasWH);
+    this.fitnesses = this.getAllFitnesses(this.resolution);
   }
 
   haveChild () {

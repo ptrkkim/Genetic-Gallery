@@ -2,15 +2,15 @@ import cloneDeep from 'lodash.clonedeep';
 import { Gene } from '../gene';
 import { Individual } from '../individual';
 
-const makeIdenticalSquareGenes = (rgbaArr, numGenes, canvasWH) => {
+const makeIdenticalSquareGenes = (rgbaArr, numGenes, proportion = 1) => {
   const genes = [];
   for (let i = 0; i < numGenes; i++) {
     const rgba = rgbaArr.slice();
     const square = [
       { x: 0, y: 0 },
-      { x: 0, y: canvasWH },
-      { x: canvasWH, y: canvasWH },
-      { x: canvasWH, y: 0 },
+      { x: 0, y: 1 * proportion },
+      { x: 1 * proportion, y: 1 * proportion },
+      { x: 1 * proportion, y: 0 },
     ];
     genes.push(new Gene(4, rgba, square));
   }
@@ -156,11 +156,12 @@ describe('Individuals', () => {
     beforeEach(() => {
       testCtx.clearRect(0, 0, canvasWH, canvasWH);
     });
+
     test('modifies the canvas passed to draw method', () => {
       const opaqueBlack = [0, 0, 0, 1];
-      const testGenes = makeIdenticalSquareGenes(opaqueBlack, 10, canvasWH);
+      const testGenes = makeIdenticalSquareGenes(opaqueBlack, 10);
       const testIndividual = new Individual(10, 4, testGenes);
-      testIndividual.draw(testCtx);
+      testIndividual.draw(testCtx, canvasWH);
 
       const newData = testCtx.getImageData(0, 0, canvasWH, canvasWH).data;
       expect(testCanvasData).not.toEqual(newData);
@@ -170,9 +171,9 @@ describe('Individuals', () => {
       const topLeftOriginal = testCtx.getImageData(0, 0, canvasWH / 2, canvasWH / 2).data;
       const botRightOriginal = testCtx.getImageData(canvasWH / 2, canvasWH / 2, canvasWH, canvasWH).data;
       const opaqueBlack = [0, 0, 0, 1];
-      const topLeft = makeIdenticalSquareGenes(opaqueBlack, 10, canvasWH / 2);
+      const topLeft = makeIdenticalSquareGenes(opaqueBlack, 10, 0.5);
       const testIndividual = new Individual(10, 4, topLeft);
-      testIndividual.draw(testCtx);
+      testIndividual.draw(testCtx, canvasWH);
 
       const wholeAfterDraw = testCtx.getImageData(0, 0, canvasWH, canvasWH).data;
       const topLeftAfterDraw = testCtx.getImageData(0, 0, canvasWH / 2, canvasWH / 2).data;
