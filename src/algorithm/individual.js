@@ -1,7 +1,6 @@
 // @flow
 import { Gene } from './gene';
 import { getPixels } from './utils';
-// import type { GeneT } from './geneTypes';
 
 // a single image, or collection of genes/polygons
 export class Individual {

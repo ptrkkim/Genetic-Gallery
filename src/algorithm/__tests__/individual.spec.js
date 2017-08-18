@@ -173,6 +173,8 @@ describe('Individuals', () => {
       const opaqueBlack = [0, 0, 0, 1];
       const topLeft = makeIdenticalSquareGenes(opaqueBlack, 10, 0.5);
       const testIndividual = new Individual(10, 4, topLeft);
+
+      // fill the topleft quadrant, leave botright alone
       testIndividual.draw(testCtx, canvasWH);
 
       const wholeAfterDraw = testCtx.getImageData(0, 0, canvasWH, canvasWH).data;
