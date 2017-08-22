@@ -31,12 +31,12 @@ export class Population {
     this.crossoverChance = crossoverChance;
     this.mutateChance = mutateChance;
     this.mutateAmount = mutateAmount;
-    this.individuals = this.initialize(size);
+    this.individuals = this.sortByFitness(this.initialize(size));
     this.refCtx = refCtx;
     this.fitCtx = fitCtx;
     this.outCtx = outCtx;
     this.resolution = 75; // hardcode internal resolution for fitness calc
-    this.fitnesses = this.getAllFitnesses(this.resolution);
+    // this.fitnesses = this.getAllFitnesses(this.resolution);
   }
 
   initialize (size: number): Individual[] {
@@ -44,41 +44,54 @@ export class Population {
       .map(() => new Individual(this.polygonsPer, this.numVertices));
   }
 
-  getAllFitnesses (resolution: number): number[] {
-    return this.individuals
-      .map(individual => individual.calcFitness(this.refCtx, this.fitCtx, resolution));
-  }
+  // getAllFitnesses (resolution: number): number[] {
+  //   return this.individuals
+  //     .map(individual => individual.calcFitness(this.refCtx, this.fitCtx, resolution));
+  // }
 
   createNextGen () {
     const evolvedPop = [];
     while (evolvedPop.length < this.individuals.length) {
       evolvedPop.push(this.haveChild());
     }
-    this.individuals = evolvedPop;
-    this.fitnesses = this.getAllFitnesses(this.resolution);
+    this.individuals = this.sortByFitness(evolvedPop);
+  }
+
+  sortByFitness (individuals: Individual[]) {
+    const compareFitness = (a, b) => {
+      if (a.fitness < b.fitness) return 1;
+      if (a.fitness > b.fitness) return -1;
+      return 0;
+    };
+
+    return individuals.sort(compareFitness);
   }
 
   haveChild () {
-    const mom = this.rouletteSelect();
-    const dad = this.rouletteSelect();
+    const cutoff = 0.2; // 20th percentile
+    const mom = this.rouletteSelect(cutoff);
+    const dad = this.rouletteSelect(cutoff);
     const parentToClone = Math.random() < 0.5 ? mom : dad;
-    const possiblyCrossed = Math.random() < this.crossoverChance
+    const child = Math.random() < this.crossoverChance
       ? this.crossover(mom, dad)
       : cloneDeep(parentToClone);
 
-    possiblyCrossed.mutate(this.mutateChance, this.mutateAmount);
-    return possiblyCrossed;
+    child.mutate(this.mutateChance, this.mutateAmount);
+    child.fitness = child.calcFitness(this.refCtx, this.fitCtx, this.resolution);
+    return child;
   }
 
-  rouletteSelect (): Individual {
-    const fitnessSum = this.fitnesses.reduce((sum, fitness) => sum + fitness, 0);
-    let roll = Math.random() * fitnessSum;
+  rouletteSelect (cutoff: number): Individual {
+    const theChosenOne = Math.floor(Math.random() * cutoff * this.individuals.length);
+    return this.individuals[theChosenOne];
+    // const fitnessSum = this.fitnesses.reduce((sum, fitness) => sum + fitness, 0);
+    // let roll = Math.random() * fitnessSum;
 
-    for (let i = 0; i < this.individuals.length; i++) {
-      if (roll < this.fitnesses[i]) return this.individuals[i];
-      roll -= this.fitnesses[i];
-    }
-    return this.individuals[0]; // should mathematically not reach here- for type safety only
+    // for (let i = 0; i < this.individuals.length; i++) {
+    //   if (roll < this.fitnesses[i]) return this.individuals[i];
+    //   roll -= this.fitnesses[i];
+    // }
+    // return this.individuals[0]; // should mathematically not reach here- for type safety only
   }
 
   crossover (mom: Individual, dad: Individual): Individual {
@@ -93,11 +106,12 @@ export class Population {
 
   // runs in linear time, rather than n log n from having to sort
   getFittest (): Individual {
-    const fittestIndex = this.fitnesses.reduce((fittestInd, currentScore, i, scores) => {
-      if (currentScore > scores[fittestInd]) return i;
-      return fittestInd;
-    }, 0);
+    // const fittestIndex = this.fitnesses.reduce((fittestInd, currentScore, i, scores) => {
+    //   if (currentScore > scores[fittestInd]) return i;
+    //   return fittestInd;
+    // }, 0);
 
-    return this.individuals[fittestIndex];
+    // return this.individuals[fittestIndex];
+    return this.individuals[0];
   }
 }

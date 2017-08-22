@@ -24,7 +24,7 @@ class Canvases extends Component {
 
   startEvolution () {
     const size = 50;
-    const polygonsPer = 75;
+    const polygonsPer = 100;
     const numVertices = 3;
     const crossoverChance = 0.3;
     const mutateChance = 0.01;
@@ -42,8 +42,13 @@ class Canvases extends Component {
     fitCanvas.width = `${fitResolution}`;
     fitCanvas.height = `${fitResolution}`;
 
+    const offCanvas = document.createElement('canvas');
+    offCanvas.width = `${fullResolution}`;
+    offCanvas.height = `${fullResolution}`;
+
     const fitCtx = fitCanvas.getContext('2d');
     const refCtx = refCanvas.getContext('2d');
+    const offCtx = offCanvas.getContext('2d');
     const outCtx = this.outCanvas.getContext('2d');
 
     // hardcode resolution to 75 x 75 for fast fit calcs
@@ -62,13 +67,21 @@ class Canvases extends Component {
     );
 
     population.getFittest().draw(outCtx);
+    var t0 = performance.now();  // eslint-disable-line
 
     const tick = () => {
       outCtx.clearRect(0, 0, fullResolution, fullResolution);
+      offCtx.clearRect(0, 0, fullResolution, fullResolution);
       population.createNextGen();
       const fittest = population.getFittest();
       // console.log(fittest.calcFitness(refCtx, fitCtx, fitResolution));
-      fittest.draw(outCtx, fullResolution);
+      fittest.draw(offCtx, fullResolution);
+      outCtx.drawImage(offCanvas, 0, 0, fullResolution, fullResolution);
+      const t1 = performance.now();
+      console.log(`generation took ${t1 - t0} milliseconds`);
+      console.log('fittest', population.individuals[0].fitness);
+      console.log('weakest', population.individuals[49].fitness);
+      t0 = t1;
     };
 
     this.interval = setInterval(tick, 0);

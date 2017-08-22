@@ -13,7 +13,7 @@ const inactiveStyle = {
 };
 
 export default () => (
-  <div className="App-header">
+  <div className="Navbar">
     <NavLink to="/" style={inactiveStyle}><h2>View1</h2></NavLink>
     <NavLink to="/create" style={inactiveStyle}><h2>View2</h2></NavLink>
     <NavLink to="/learn" style={inactiveStyle}><h2>View3</h2></NavLink>
