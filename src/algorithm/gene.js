@@ -8,7 +8,6 @@ type Point = {
 };
 
 export const minAlpha = 0.2;
-export const canvasDim = 10; // later, import from canvas dimesion definition
 
 export class Gene {
   numVertices: number;
@@ -31,14 +30,14 @@ export class Gene {
   }
 
   generatePoints (): Point[] {
-    const xOrigin = Math.random() * canvasDim;
-    const yOrigin = Math.random() * canvasDim;
+    const xOrigin = Math.random();
+    const yOrigin = Math.random();
 
     return Array(this.numVertices).fill('').map(() => {
-      const newX = xOrigin + ((Math.random() - 0.5) * canvasDim);
-      const newY = yOrigin + ((Math.random() - 0.5) * canvasDim);
-      const thisX = clamp(0, canvasDim, newX);
-      const thisY = clamp(0, canvasDim, newY);
+      const newX = xOrigin + (Math.random() - 0.5);
+      const newY = yOrigin + (Math.random() - 0.5);
+      const thisX = clamp(0, 1, newX);
+      const thisY = clamp(0, 1, newY);
       return { x: thisX, y: thisY };
     });
   }
@@ -56,12 +55,11 @@ export class Gene {
   }
 
   mutatePoints (mutateChance: number, mutPercent: number) {
-    const multiplier = canvasDim;
-    const mutateAmount = multiplier * mutPercent;
+    const mutateAmount = mutPercent;
     for (let i = 0; i < this.numVertices; i++) {
       if (Math.random() < mutateChance) {
-        const newX = clamp(0, canvasDim, mutateValBy(this.points[i].x, mutateAmount));
-        const newY = clamp(0, canvasDim, mutateValBy(this.points[i].y, mutateAmount));
+        const newX = clamp(0, 1, mutateValBy(this.points[i].x, mutateAmount));
+        const newY = clamp(0, 1, mutateValBy(this.points[i].y, mutateAmount));
         this.points[i].x = newX;
         this.points[i].y = newY;
       }

@@ -1,4 +1,4 @@
-import { Gene, minAlpha, canvasDim } from '../gene';
+import { Gene, minAlpha } from '../gene';
 
 const compareArr = (arr1, arr2) => arr1.reduce((bool, e, i) => {
   const same = arr1[i] === arr2[i];
@@ -83,8 +83,8 @@ describe('Genes', () => {
       expect(testGene.points).toHaveLength(3);
 
       const checkAxes = (axis, index) => {
-        expect(testGene.points[index][axis]).toBeGreaterThanOrEqual(-0.5 * canvasDim);
-        expect(testGene.points[index][axis]).toBeLessThanOrEqual(1.5 * canvasDim);
+        expect(testGene.points[index][axis]).toBeGreaterThanOrEqual(-0.5);
+        expect(testGene.points[index][axis]).toBeLessThanOrEqual(1.5);
       };
 
       for (let i = 0; i < 3; i++) {
@@ -98,8 +98,8 @@ describe('Genes', () => {
     const whiteFill = [255, 255, 255, 0.5];
     const testPoints = [
       { x: 0, y: 0 },
-      { x: canvasDim, y: canvasDim },
-      { x: 0, y: canvasDim },
+      { x: 1, y: 1 },
+      { x: 0, y: 1 },
     ];
     const numTestGenes = 50;
     let testBlack;
