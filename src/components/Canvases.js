@@ -14,8 +14,14 @@ const canvasStyle = {
   margin: '10px',
 };
 
-const Canvases = ({ imgRefSetter, outRefSetter }) => ( // eslint-disable-line
+const Canvases = ({ imgRefSetter, outRefSetter, handleUpload }) => ( // eslint-disable-line
   <div style={containerStyle} >
+    <input
+      type="file"
+      id="upload"
+      accept=".jpg, .jpeg, .png"
+      onChange={handleUpload}
+    />
     <canvas
       id="originalCanvas"
       width={width}

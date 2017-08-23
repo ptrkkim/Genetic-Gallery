@@ -3,28 +3,44 @@ import EvolutionContainer from './EvolutionContainer';
 import Canvases from '../components/Canvases';
 import { Population } from '../algorithm/population';
 import { makeCanvases, getContexts, makeTick } from './utils';
-import fullstackLogo from '../images/fullstack.png';
+// import evanVue from '../images/fullstack.png';
+import evanVue from '../images/evanVue.jpeg';
 
 export default class CreateContainer extends Component {
   constructor (props) {
     super(props);
     this.state = {
       size: 50,
-      polygonsPer: 100,
+      polygonsPer: 125,
       numVertices: 3,
       crossoverChance: 0.3,
       mutateChance: 0.01,
       mutateAmount: 0.1,
+      imageData: evanVue,
     };
   }
 
   componentDidMount () {
     const ogImage = new Image();
-    ogImage.src = fullstackLogo;
+    ogImage.src = evanVue;
     ogImage.onload = () => {
       const ogCtx = this.imgCanvas.getContext('2d');
       ogCtx.drawImage(ogImage, 0, 0, 500, 500, 0, 0, 300, 300);
     };
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (prevState.imageData !== this.state.imageData) {
+      const newImg = new Image();
+      newImg.src = this.state.imageData;
+      newImg.onload = () => {
+        const imgCtx = this.imgCanvas.getContext('2d');
+        const outCtx = this.outCanvas.getContext('2d');
+        imgCtx.clearRect(0, 0, 300, 300);
+        outCtx.clearRect(0, 0, 300, 300);
+        imgCtx.drawImage(newImg, 0, 0, newImg.width, newImg.height, 0, 0, 300, 300);
+      };
+    }
   }
 
   startEvolution = () => {
@@ -59,7 +75,23 @@ export default class CreateContainer extends Component {
   }
 
   stopEvolution = () => {
+    this.setState({ numVertices: 3 });
     clearInterval(this.interval);
+  }
+
+  handleUpload = (event) => {
+    console.log('upload handled');
+    const reader = new FileReader();
+    const file = event.target.files[0];
+    console.log(event.target);
+    reader.onload = (upload) => {
+      this.setState({ imageData: upload.target.result });
+    };
+
+    if (file) {
+      clearInterval(this.interval);
+      reader.readAsDataURL(file);
+    }
   }
 
   render () {
@@ -68,6 +100,7 @@ export default class CreateContainer extends Component {
         <Canvases
           imgRefSetter={(imgCanvas) => { this.imgCanvas = imgCanvas; }}
           outRefSetter={(outCanvas) => { this.outCanvas = outCanvas; }}
+          handleUpload={this.handleUpload}
         />
         <EvolutionContainer
           startEvolution={this.startEvolution}
