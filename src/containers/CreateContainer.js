@@ -3,8 +3,7 @@ import EvolutionContainer from './EvolutionContainer';
 import Canvases from '../components/Canvases';
 import { Population } from '../algorithm/population';
 import { makeCanvases, getContexts, makeTick } from './utils';
-// import evanVue from '../images/fullstack.png';
-import evanVue from '../images/evanVue.jpeg';
+import fullstackLogo from '../images/fullstack.png';
 
 export default class CreateContainer extends Component {
   constructor (props) {
@@ -16,13 +15,13 @@ export default class CreateContainer extends Component {
       crossoverChance: 0.3,
       mutateChance: 0.01,
       mutateAmount: 0.1,
-      imageData: evanVue,
+      imageData: fullstackLogo,
     };
   }
 
   componentDidMount () {
     const ogImage = new Image();
-    ogImage.src = evanVue;
+    ogImage.src = fullstackLogo;
     ogImage.onload = () => {
       const ogCtx = this.imgCanvas.getContext('2d');
       ogCtx.drawImage(ogImage, 0, 0, 500, 500, 0, 0, 300, 300);
@@ -80,10 +79,8 @@ export default class CreateContainer extends Component {
   }
 
   handleUpload = (event) => {
-    console.log('upload handled');
     const reader = new FileReader();
     const file = event.target.files[0];
-    console.log(event.target);
     reader.onload = (upload) => {
       this.setState({ imageData: upload.target.result });
     };
