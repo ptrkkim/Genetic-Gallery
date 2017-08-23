@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import ImgCanvas from './ImgCanvas';
 
 class Canvases extends Component {
   constructor(props) {
@@ -28,53 +28,14 @@ class Canvases extends Component {
       border: '5px solid #222',
       margin: '10px',
     };
-    const inputStyle = {
-      display: 'none',
-    };
-    const zFlexStyle = {
-      display: 'flex',
-    };
-    const overlayStyle = {
-      backgroundColor: 'black',
-      width: '300px',
-      height: '300px',
-      margin: '10px 10px 10px -320px',
-      border: '5px solid rgb(34, 34, 34)',
-      zIndex: 1,
-    };
-    const { imgRefSetter, outRefSetter, handleUpload } = this.props;
 
-    const uploadOverlay = this.state.hover
-      ? <div id="uploadOverlay" style={overlayStyle} />
-      : null;
-
+    const { outRefSetter, imgRefSetter, handleUpload } = this.props;
     return (
       <div style={containerStyle} >
-        <div
-          style={zFlexStyle}
-          onMouseEnter={this.toggleHover}
-          onMouseLeave={this.toggleHover}
-        >
-          <label
-            htmlFor="upload"
-          >
-            <canvas
-              id="originalCanvas"
-              width={width}
-              height={height}
-              style={canvasStyle}
-              ref={imgRefSetter}
-            />
-            <input
-              type="file"
-              id="upload"
-              accept=".jpg, .jpeg, .png"
-              onChange={handleUpload}
-              style={inputStyle}
-            />
-          </label>
-          {uploadOverlay}
-        </div>
+        <ImgCanvas
+          imgRefSetter={imgRefSetter}
+          handleUpload={handleUpload}
+        />
         <div>
           <canvas
             id="outCanvas"
