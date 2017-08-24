@@ -3,18 +3,6 @@ import PropTypes from 'prop-types';
 import ImgCanvas from './ImgCanvas';
 
 class Canvases extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hover: false,
-    };
-  }
-
-  toggleHover = () => {
-    console.log('hover toggled');
-    this.setState({ hover: !this.state.hover });
-  }
-
   render () {
     const width = '300';
     const height = '300';

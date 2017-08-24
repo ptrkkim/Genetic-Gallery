@@ -1,22 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withHover from '../HOCs/withHover';
+import CameraSVG from './CameraSVG';
 
 const inputStyle = {
   display: 'none',
 };
 
-const zFlexStyle = {
+const containerStyle = {
   display: 'flex',
+  cursor: 'pointer',
 };
 
 const overlayStyle = {
   backgroundColor: 'black',
   width: '300px',
   height: '300px',
-  margin: '10px 10px 10px -320px',
-  border: '5px solid rgb(34, 34, 34)',
-  zIndex: 1,
+  cursor: 'pointer',
+  margin: '-319px 0px 0px 15px',
+  zIndex: '1',
+  opacity: '0.92',
 };
 
 const canvasStyle = {
@@ -24,17 +27,18 @@ const canvasStyle = {
   margin: '10px',
 };
 
-const ImgCanvas = ({ imgRefSetter, toggleHover, hover, handleUpload }) => {
+const ImgCanvas = ({ imgRefSetter, handleUpload, toggleHover, hover }) => {
   const width = 300;
   const height = 300;
 
+  const camera = <CameraSVG />;
   const uploadOverlay = hover
-    ? <div id="uploadOverlay" style={overlayStyle} />
+    ? <div id="uploadOverlay" style={overlayStyle}>{camera}</div>
     : null;
 
   return (
     <div
-      style={zFlexStyle}
+      style={containerStyle}
       onMouseEnter={toggleHover}
       onMouseLeave={toggleHover}
     >
@@ -55,8 +59,8 @@ const ImgCanvas = ({ imgRefSetter, toggleHover, hover, handleUpload }) => {
           onChange={handleUpload}
           style={inputStyle}
         />
+        {uploadOverlay}
       </label>
-      {uploadOverlay}
     </div>
   );
 };
