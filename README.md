@@ -1,35 +1,51 @@
-A custom config boilerplate for React apps, made with [Create React App](https://github.com/facebookincubator/create-react-app).
+A gallery site for images recreated using a genetic algorithm.<br>
 
-Configurations beyond base Create-React-App:
-- Flow typing with ESLint integration
-- Linting recommendations for Javascript (airbnb), Jest and Flow
-- Enzyme and react-test-renderer for component unit testing
+## Table of Contents
+- [About](#about)
+- [How it works](#how-it-works)
+- [Scripts and setup](#scripts-and-setup)
 
-## Available Scripts
+## About <a name="about"></a>
 
-In the project directory, you can run:
+This is a side project inspired by [Roger Alsing's Mona Lisa](https://rogerjohansson.blog/2008/12/07/genetic-programming-evolution-of-mona-lisa/), though his implementation seems to be closer to stochastic hill-climbing than to a model of natural selection. Genetic Gallery is a place to create and share a specific kind of computer-generated art. Users can upload images of their choice and generate geometric approximations of them using a genetic algorithm. These approximations are 'evolved' from scratch; every creation is 100% unique!
+<br>
+Built on React, Node, Express, and PostgreSQL/Sequelize.
+<br>
+I also used this project to learn the [Jest](https://facebook.github.io/jest/) testing framework and [Flow.js](https://flow.org), a static type checking library. 
 
-### `npm start`
 
-Runs the app in the development mode.<br>
+## How it works <a name="how-it-works"></a>
+
+## Scripts and setup <a name="scripts-and-setup"></a>
+
+From the project directory, you can use [yarn](https://yarnpkg.com/en/) or [npm](https://www.npmjs.com/) to run:
+
+### `yarn start`
+
+Runs the app in development mode.
+<br>
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
+The page will reload if you make edits.
+<br>
 You will also see any lint errors in the console.
 
-### `npm test`
+### `yarn test`
 
-Launches the test runner in the interactive watch mode.
+Launches an interactive test runner in the console.
+This project uses [Jest](https://facebook.github.io/jest/), along with [Enzyme](https://github.com/airbnb/enzyme) to help with React Component testing.
 
-### `npm run build`
+### `yarn run build`
 
 Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The build is minified and the filenames include the hashes.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+### `yarn run flow`
 
-### `npm run flow`
-
-Runs flow to type check any files annotated with @flow.<br>
-ESLint will give flow-related hints without having to run this command.
+Runs flow to type check any files annotated with the `@flow` comment: 
+```javascript
+// @flow
+function annotatedCode(here: string) {...}
+```
+This project is configured to give on-the-fly flow hints via ESLint, so this should be unnecessary in most cases.
