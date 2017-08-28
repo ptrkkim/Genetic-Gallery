@@ -5,18 +5,19 @@ A gallery site for images recreated using a genetic algorithm.<br>
 - [How it works](#how-it-works)
 - [Scripts and setup](#scripts-and-setup)
 
-## About <a name="about"></a>
+## <a name="about"></a> About
 
 This is a side project inspired by [Roger Alsing's Mona Lisa](https://rogerjohansson.blog/2008/12/07/genetic-programming-evolution-of-mona-lisa/), though his implementation seems to be closer to stochastic hill-climbing than to a model of natural selection. Genetic Gallery is a place to create and share a specific kind of computer-generated art. Users can upload images of their choice and generate geometric approximations of them using a genetic algorithm. These approximations are 'evolved' from scratch; every creation is 100% unique!
+<br>
 <br>
 Built on React, Node, Express, and PostgreSQL/Sequelize.
 <br>
 I also used this project to learn the [Jest](https://facebook.github.io/jest/) testing framework and [Flow.js](https://flow.org), a static type checking library. 
 
 
-## How it works <a name="how-it-works"></a>
+## <a name="how-it-works"></a> How it works
 
-## Scripts and setup <a name="scripts-and-setup"></a>
+## <a name="scripts-and-setup"></a> Scripts and setup
 
 From the project directory, you can use [yarn](https://yarnpkg.com/en/) or [npm](https://www.npmjs.com/) to run:
 
@@ -48,4 +49,4 @@ Runs flow to type check any files annotated with the `@flow` comment:
 // @flow
 function annotatedCode(here: string) {...}
 ```
-This project is configured to give on-the-fly flow hints via ESLint, so this should be unnecessary in most cases.
+This project is configured to give on-the-fly flow hints via ESLint, so this script should be unnecessary in most cases.

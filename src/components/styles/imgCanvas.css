@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  cursor: pointer;
+}
+
+.input {
+  display: none;
+}
+
+.overlay {
+  background-color: black;
+  width: 300px;
+  height: 300px;
+  cursor: pointer;
+  margin: -319px 0px 0px 15px;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+.canvas {
+  composes: canvas from './canvas.css';
+}

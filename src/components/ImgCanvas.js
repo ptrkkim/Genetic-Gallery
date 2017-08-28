@@ -2,30 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withHover from '../HOCs/withHover';
 import CameraSVG from './CameraSVG';
-
-const inputStyle = {
-  display: 'none',
-};
-
-const containerStyle = {
-  display: 'flex',
-  cursor: 'pointer',
-};
-
-const overlayStyle = {
-  backgroundColor: 'black',
-  width: '300px',
-  height: '300px',
-  cursor: 'pointer',
-  margin: '-319px 0px 0px 15px',
-  zIndex: '1',
-  opacity: '0.92',
-};
-
-const canvasStyle = {
-  border: '5px solid #222',
-  margin: '10px',
-};
+import s from './styles/imgCanvas.css';
 
 const ImgCanvas = ({ imgRefSetter, handleUpload, toggleHover, hover }) => {
   const width = 300;
@@ -33,31 +10,25 @@ const ImgCanvas = ({ imgRefSetter, handleUpload, toggleHover, hover }) => {
 
   const camera = <CameraSVG />;
   const uploadOverlay = hover
-    ? <div id="uploadOverlay" style={overlayStyle}>{camera}</div>
+    ? <div className={s.overlay} id="uploadOverlay">{camera}</div>
     : null;
 
   return (
-    <div
-      style={containerStyle}
-      onMouseEnter={toggleHover}
-      onMouseLeave={toggleHover}
-    >
-      <label
-        htmlFor="upload"
-      >
+    <div className={s.container} onMouseEnter={toggleHover} onMouseLeave={toggleHover}>
+      <label htmlFor="upload">
         <canvas
+          className={s.canvas}
           id="originalCanvas"
           width={width}
           height={height}
-          style={canvasStyle}
           ref={imgRefSetter}
         />
         <input
+          className={s.input}
           type="file"
           id="upload"
           accept=".jpg, .jpeg, .png"
           onChange={handleUpload}
-          style={inputStyle}
         />
         {uploadOverlay}
       </label>
