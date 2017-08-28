@@ -1,4 +1,6 @@
 // @flow
+import type { Population } from '../algorithm/population';
+
 export const makeCanvases = (fitRes: number, fullRes: number) => {
   const refCanvas = document.createElement('canvas');
   refCanvas.width = fitRes;
@@ -18,8 +20,13 @@ export const makeCanvases = (fitRes: number, fullRes: number) => {
 export const getContexts = (canvArr: HTMLCanvasElement[]): CanvasRenderingContext2D[] =>
   canvArr.map(canvas => canvas.getContext('2d'));
 
-export const makeTick = (population, offCanvas, outCtx, offCtx, resolution) =>
-  () => {
+export const makeTicker = (
+  population: Population,
+  offCanvas: HTMLCanvasElement,
+  outCtx: CanvasRenderingContext2D,
+  offCtx: CanvasRenderingContext2D,
+  resolution: number,
+  ) => () => {
     const t0 = performance.now();
     outCtx.clearRect(0, 0, resolution, resolution);
     offCtx.clearRect(0, 0, resolution, resolution);

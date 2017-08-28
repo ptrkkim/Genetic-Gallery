@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import EvolutionContainer from './EvolutionContainer';
 import Canvases from '../components/Canvases';
 import { Population } from '../algorithm/population';
-import { makeCanvases, getContexts, makeTick } from './utils';
+import { makeCanvases, getContexts, makeTicker } from './utils';
 import fullstackLogo from '../images/fullstack.png';
 
 export default class CreateContainer extends Component {
   constructor (props) {
     super(props);
     this.state = {
+      ticker: null, // either null or a population-specific ticking func
       size: 50,
       polygonsPer: 125,
       numVertices: 3,
@@ -68,14 +69,28 @@ export default class CreateContainer extends Component {
     );
 
     population.getFittest().draw(outCtx);
-    const tick = makeTick(population, offCanvas, outCtx, offCtx, fullResolution);
+    const ticker = makeTicker(population, offCanvas, outCtx, offCtx, fullResolution);
 
-    this.interval = setInterval(tick, 0);
+    this.setState({ ticker }, () => {
+      this.interval = setInterval(this.state.ticker, 0);
+    });
   }
 
-  stopEvolution = () => {
-    this.setState({ numVertices: 3 });
+  resumeEvolution = () => {
+    this.interval = setInterval(this.state.ticker, 0);
+  }
+
+  pauseEvolution = () => {
     clearInterval(this.interval);
+  }
+
+  clearEvolution = () => {
+    this.setState({ ticker: null }, () => {
+      clearInterval(this.interval);
+      this.interval = null;
+      const outCtx = this.outCanvas.getContext('2d');
+      outCtx.clearRect(0, 0, 300, 300);
+    });
   }
 
   handleUpload = (event) => {
@@ -86,12 +101,15 @@ export default class CreateContainer extends Component {
     };
 
     if (file) {
-      clearInterval(this.interval);
-      reader.readAsDataURL(file);
+      this.setState({ ticker: null }, () => {
+        clearInterval(this.interval);
+        reader.readAsDataURL(file);
+      });
     }
   }
 
   render () {
+    console.log('rendering!!!!!!!!!!!!!', this.state);
     return (
       <div>
         <Canvases
@@ -100,8 +118,11 @@ export default class CreateContainer extends Component {
           handleUpload={this.handleUpload}
         />
         <EvolutionContainer
-          startEvolution={this.startEvolution}
-          stopEvolution={this.stopEvolution}
+          ticker={this.state.ticker}
+          startEvo={this.startEvolution}
+          pauseEvo={this.pauseEvolution}
+          resumeEvo={this.resumeEvolution}
+          clearEvo={this.clearEvolution}
         />
       </div>
     );

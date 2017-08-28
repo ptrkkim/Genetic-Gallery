@@ -9,6 +9,7 @@ export default () => (
       <Route exact path="/" component={Intro} />
       <Route path="/create" component={Create} />
       <Route path="/learn" component={Intro} />
+      <Route component={Intro} />
     </Switch>
   </main>
 );

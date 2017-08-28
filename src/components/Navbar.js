@@ -1,21 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
-// const linkContainerStyle = {
-//   display: 'flex',
-//   justifyContent: 'space-evenly',
-// };
-
-const inactiveStyle = {
-  fontWeight: 'bold',
-  textDecoration: 'none',
-  color: '#222',
-};
+import s from './styles/navbar.css';
 
 export default () => (
-  <div className="Navbar">
-    <NavLink to="/" style={inactiveStyle}><h2>View1</h2></NavLink>
-    <NavLink to="/create" style={inactiveStyle}><h2>View2</h2></NavLink>
-    <NavLink to="/learn" style={inactiveStyle}><h2>View3</h2></NavLink>
+  <div className={s.navbar}>
+    <NavLink to="/" className={s.inactive}><h2>View1</h2></NavLink>
+    <NavLink to="/create" className={s.inactive}><h2>View2</h2></NavLink>
+    <NavLink to="/learn" className={s.inactive}><h2>View3</h2></NavLink>
   </div>
 );
