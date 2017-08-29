@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import PauseResumeClear from '../components/PauseResumeClear';
+// import SubmitModal from '../components/SubmitModal';
 
-export default class EvolutionContainer extends Component {
+export default class ControlContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,17 +44,18 @@ export default class EvolutionContainer extends Component {
     const btnContainer = { display: 'flex', justifyContent: 'center' };
     return (
       <div style={btnContainer}>
+        {/* <SubmitModal /> */}
         {startOrPauseResumeClear}
       </div>
     );
   }
 }
 
-EvolutionContainer.defaultProps = {
+ControlContainer.defaultProps = {
   ticker: null,
 };
 
-EvolutionContainer.propTypes = {
+ControlContainer.propTypes = {
   startEvo: PropTypes.func.isRequired,
   pauseEvo: PropTypes.func.isRequired,
   resumeEvo: PropTypes.func.isRequired,

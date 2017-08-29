@@ -17,6 +17,6 @@
   opacity: 0.9;
 }
 
-.canvas {
-  composes: canvas from './canvas.css';
+.canvasCard {
+  composes: canvasCard from './canvas.css';
 }

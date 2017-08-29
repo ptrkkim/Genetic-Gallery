@@ -4,7 +4,7 @@ router.use('/images', require('./images'));
 
 router.use((req, res, next) => {
   const err = new Error('Request did not match any route.');
-  err.status = 404;
+  err.status = 404; 
   next(err);
 });
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import EvolutionContainer from './EvolutionContainer';
+import ControlContainer from './ControlContainer';
 import Canvases from '../components/Canvases';
 import { Population } from '../algorithm/population';
 import { makeCanvases, getContexts, makeTicker } from './utils';
@@ -117,7 +117,7 @@ export default class CreateContainer extends Component {
           outRefSetter={(outCanvas) => { this.outCanvas = outCanvas; }}
           handleUpload={this.handleUpload}
         />
-        <EvolutionContainer
+        <ControlContainer
           ticker={this.state.ticker}
           startEvo={this.startEvolution}
           pauseEvo={this.pauseEvolution}

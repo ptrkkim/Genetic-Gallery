@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withHover from '../HOCs/withHover';
 import CameraSVG from './CameraSVG';
-import s from './styles/imgCanvas.css';
+import { overlay, container, canvasCard, input } from './styles/imgCanvas.css';
 
 const ImgCanvas = ({ imgRefSetter, handleUpload, toggleHover, hover }) => {
   const width = 300;
@@ -10,21 +10,21 @@ const ImgCanvas = ({ imgRefSetter, handleUpload, toggleHover, hover }) => {
 
   const camera = <CameraSVG />;
   const uploadOverlay = hover
-    ? <div className={s.overlay} id="uploadOverlay">{camera}</div>
+    ? <div className={overlay} id="uploadOverlay">{camera}</div>
     : null;
 
   return (
-    <div className={s.container} onMouseEnter={toggleHover} onMouseLeave={toggleHover}>
+    <div className={container} onMouseEnter={toggleHover} onMouseLeave={toggleHover}>
       <label htmlFor="upload">
         <canvas
-          className={s.canvas}
+          className={canvasCard}
           id="originalCanvas"
           width={width}
           height={height}
           ref={imgRefSetter}
         />
         <input
-          className={s.input}
+          className={input}
           type="file"
           id="upload"
           accept=".jpg, .jpeg, .png"
