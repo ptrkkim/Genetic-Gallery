@@ -40,8 +40,9 @@ export default class EvolutionContainer extends Component {
       ? prcComponent
       : <button onClick={this.start}>Start</button>;
 
+    const btnContainer = { display: 'flex', justifyContent: 'center' };
     return (
-      <div>
+      <div style={btnContainer}>
         {startOrPauseResumeClear}
       </div>
     );
