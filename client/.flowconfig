@@ -1,0 +1,15 @@
+[ignore]
+.*/__tests__/.*
+client/config
+client/coverage
+client/node_modules
+client/public
+client/scripts
+
+[include]
+
+[libs]
+
+[options]
+
+[lints]
