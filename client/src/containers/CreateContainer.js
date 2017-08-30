@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ControlContainer from './ControlContainer';
+// import SubmissionContainer from './SubmissionContainer';
 import Canvases from '../components/Canvases';
 import { Population } from '../algorithm/population';
 import { makeCanvases, getContexts, makeTicker } from './utils';
@@ -10,6 +11,8 @@ export default class CreateContainer extends Component {
     super(props);
     this.state = {
       ticker: null, // either null or a population-specific ticking func
+      originalBlob: null,
+      artBlob: null,
       size: 50,
       polygonsPer: 125,
       numVertices: 3,
@@ -108,6 +111,17 @@ export default class CreateContainer extends Component {
     }
   }
 
+  openModal = () => {
+    this.imgCanvas.toBlob((originalBlob) => {
+      this.outCanvas.toBlob((artBlob) => {
+        this.setState({
+          originalBlob,
+          artBlob,
+        }, () => console.log('original', originalBlob, 'art', artBlob));
+      });
+    });
+  }
+
   render () {
     console.log('rendering!!!!!!!!!!!!!', this.state);
     return (
@@ -123,6 +137,9 @@ export default class CreateContainer extends Component {
           pauseEvo={this.pauseEvolution}
           resumeEvo={this.resumeEvolution}
           clearEvo={this.clearEvolution}
+          openModal={this.openModal}
+          originalBlob={this.state.originalBlob}
+          artBlob={this.state.artBlob}
         />
       </div>
     );
