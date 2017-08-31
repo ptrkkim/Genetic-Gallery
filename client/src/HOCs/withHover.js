@@ -9,14 +9,21 @@ export default function withHover (WrappedComponent) {
       };
     }
 
-    toggleHover = () => {
-      this.setState({ hover: !this.state.hover });
+    // DO NOT consolidate into toggleHover
+    // toggle breaks if mouse enters from another window or modal, then leaves
+    startHover = () => {
+      this.setState({ hover: true });
+    }
+
+    stopHover = () => {
+      this.setState({ hover: false });
     }
 
     render () {
       return (
         <WrappedComponent
-          toggleHover={this.toggleHover}
+          startHover={this.startHover}
+          stopHover={this.stopHover}
           hover={this.state.hover}
           {...this.props}
         />

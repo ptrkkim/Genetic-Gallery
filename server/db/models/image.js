@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
-module.exports = db.define('image', {
+const Image = db.define('image', {
   title: {
     type: Sequelize.STRING,
     defaultValue: 'Untitled',
@@ -16,6 +16,24 @@ module.exports = db.define('image', {
   }
 });
 
+const Original = Image.belongsTo(Image, { as: 'original' });
+
+Image.submit = function(original, art) {
+  return Image.create({
+    title: art.title,
+    artist: art.artist,
+    image: art.image,
+    original: {
+      title: original.title,
+      artist: original.artist,
+      image: original.image,
+    }
+  }, {
+    include: [Original]
+  });
+};
+
+module.exports = Image;
 /*
 Images:
 Sequelize.BLOB vs. base64 data URI with Sequelize.TEXT ?????
