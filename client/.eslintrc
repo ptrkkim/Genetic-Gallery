@@ -10,7 +10,8 @@
     "react/prefer-stateless-function": [1],
     "space-before-function-paren": "off",
     "func-names": "off",
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "jsx-a11y/no-static-element-interactions": "off"
   },
   "plugins": [
     "flowtype",

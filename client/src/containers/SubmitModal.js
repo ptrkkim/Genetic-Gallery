@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import GalleryCard from '../components/GalleryCard';
+import SubmitArtForm from '../components/SubmitArtForm';
 import { background, modal } from './styles/submitModal.css';
 
 class SubmitModal extends Component {
@@ -10,6 +11,16 @@ class SubmitModal extends Component {
       title: '',
       artist: '',
     };
+  }
+
+  handleTitle = (evt) => {
+    const title = evt.target.value;
+    this.setState({ title });
+  }
+
+  handleArtist = (evt) => {
+    const artist = evt.target.value;
+    this.setState({ artist });
   }
 
   handleSubmit = () => {
@@ -38,14 +49,27 @@ class SubmitModal extends Component {
       .catch(err => console.error(err));
   }
 
+  // so we only close modal when clicking outer div
+  stopPropagation = (evt) => {
+    evt.stopPropagation();
+  }
+
   render() {
     const { originalBlob, artBlob, closeModal } = this.props;
     return (
-      <div className={background}>
-        <div className={modal}>
-          <GalleryCard originalBlob={originalBlob} artBlob={artBlob} />
-          <input type="text" />
-          <button onClick={closeModal}>Submit</button>
+      <div className={background} onClick={closeModal}>
+        <div className={modal} onClick={this.stopPropagation}>
+          <GalleryCard
+            originalBlob={originalBlob}
+            artBlob={artBlob}
+          />
+          <SubmitArtForm
+            handleSubmit={this.handleSubmit}
+            handleTitle={this.handleTitle}
+            handleArtist={this.handleArtist}
+            titleValue={this.state.title}
+            artistValue={this.state.artist}
+          />
         </div>
       </div>
     );

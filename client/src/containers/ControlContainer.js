@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import PauseResumeClear from '../components/PauseResumeClear';
-import SubmitModal from '../components/SubmitModal';
+import SubmitModal from './SubmitModal';
 import { container } from './styles/controlContainer.css';
 
 export default class ControlContainer extends Component {
