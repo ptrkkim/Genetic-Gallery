@@ -1,25 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createBackdrop } from '../containers/utils';
 
 const GalleryCard = ({ originalSrc, artSrc }) => {
-  // const myURL = window.webkitURL || window.URL; // firefox and chrome
-
-  // const originalURL = originalSrc
-  //   ? myURL.createObjectURL(originalSrc)
-  //   : null;
-  // const artURL = artSrc
-  //   ? myURL.createObjectURL(artSrc)
-  //   : null;
-
   const originalImg = <img src={originalSrc} alt="original" />;
+  const backdrop = <img src={createBackdrop('white', 300)} alt="bg" />;
   const artImg = <img src={artSrc} alt="art" />;
 
-  console.log('ogSrc', Boolean(originalSrc));
-  console.log('artSrc', Boolean(artSrc));
   return (
     <div>
-      {originalSrc ? originalImg : null}
-      {artSrc ? artImg : null}
+      {originalImg}
+      {backdrop}
+      {artImg}
     </div>
   );
 };

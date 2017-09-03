@@ -42,6 +42,7 @@ Image.findAllPairs = function() {
   })
   .then(pairs => pairs.map(pair => {
     return {
+      id: pair.id,
       title: pair.title,
       artist: pair.artist,
       artImg: pair.image,

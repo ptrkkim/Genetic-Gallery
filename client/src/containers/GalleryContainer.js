@@ -13,8 +13,8 @@ export default class GalleryContainer extends Component {
     fetch('/api/images')
       .then(response => response.json())
       .then((foundPairs) => {
-        console.log('images from fetch', foundPairs);
         const imagePairs = foundPairs.map(pair => ({
+          id: pair.id,
           title: pair.title,
           artist: pair.artist,
           artImg: pair.artImg,
@@ -28,6 +28,7 @@ export default class GalleryContainer extends Component {
   render () {
     const cards = this.state.imagePairs.map(pair => (
       <GalleryCard
+        key={pair.id}
         originalSrc={pair.originalImg}
         artSrc={pair.artImg}
       />
