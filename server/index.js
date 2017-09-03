@@ -16,7 +16,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const appSetup = () => app
-  .use(bodyParser.json())
+  .use(bodyParser.json({ limit: '8mb' }))
   .use(bodyParser.urlencoded({ extended: true }))
   .use('/api', api)
   .use(function (err, req, res, next) {

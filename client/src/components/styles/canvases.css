@@ -4,6 +4,6 @@
   justify-content: center;
 }
 
-.canvas {
-  composes: canvas from './canvas.css';
+.canvasCard {
+  composes: canvasCard from './canvas.css';
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import EvolutionContainer from './EvolutionContainer';
+import ControlContainer from './ControlContainer';
+// import SubmissionContainer from './SubmissionContainer';
 import Canvases from '../components/Canvases';
 import { Population } from '../algorithm/population';
 import { makeCanvases, getContexts, makeTicker } from './utils';
@@ -10,6 +11,8 @@ export default class CreateContainer extends Component {
     super(props);
     this.state = {
       ticker: null, // either null or a population-specific ticking func
+      originalSrc: '',
+      artSrc: '',
       size: 50,
       polygonsPer: 125,
       numVertices: 3,
@@ -108,6 +111,16 @@ export default class CreateContainer extends Component {
     }
   }
 
+  openModal = () => {
+    const originalSrc = this.imgCanvas.toDataURL();
+    const artSrc = this.outCanvas.toDataURL();
+
+    this.setState({
+      originalSrc,
+      artSrc,
+    });
+  }
+
   render () {
     console.log('rendering!!!!!!!!!!!!!', this.state);
     return (
@@ -117,12 +130,15 @@ export default class CreateContainer extends Component {
           outRefSetter={(outCanvas) => { this.outCanvas = outCanvas; }}
           handleUpload={this.handleUpload}
         />
-        <EvolutionContainer
+        <ControlContainer
           ticker={this.state.ticker}
           startEvo={this.startEvolution}
           pauseEvo={this.pauseEvolution}
           resumeEvo={this.resumeEvolution}
           clearEvo={this.clearEvolution}
+          openModal={this.openModal}
+          originalSrc={this.state.originalSrc}
+          artSrc={this.state.artSrc}
         />
       </div>
     );

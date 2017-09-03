@@ -1,9 +1,9 @@
 import React from 'react';
-import s from './styles/cameraSVG.css';
+import { camera } from './styles/cameraSVG.css';
 
 const CameraSVG = () => (
   <svg
-    className={s.camera}
+    className={camera}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 512 512"
   >

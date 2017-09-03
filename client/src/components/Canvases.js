@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImgCanvas from './ImgCanvas';
-import s from './styles/canvases.css';
+import { container, canvasCard } from './styles/canvases.css';
 
 class Canvases extends Component {
   render () {
@@ -10,14 +10,14 @@ class Canvases extends Component {
     const { outRefSetter, imgRefSetter, handleUpload } = this.props;
 
     return (
-      <div className={s.container} >
+      <div className={container} >
         <ImgCanvas
           imgRefSetter={imgRefSetter}
           handleUpload={handleUpload}
         />
         <div>
           <canvas
-            className={s.canvas}
+            className={canvasCard}
             id="outCanvas"
             width={width}
             height={height}

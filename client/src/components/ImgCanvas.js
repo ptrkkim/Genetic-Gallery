@@ -2,29 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withHover from '../HOCs/withHover';
 import CameraSVG from './CameraSVG';
-import s from './styles/imgCanvas.css';
+import { overlay, container, canvasCard, input } from './styles/imgCanvas.css';
 
-const ImgCanvas = ({ imgRefSetter, handleUpload, toggleHover, hover }) => {
+// for displaying and uploading original reference images
+const ImgCanvas = ({ imgRefSetter, handleUpload, startHover, stopHover, hover }) => {
   const width = 300;
   const height = 300;
 
-  const camera = <CameraSVG />;
   const uploadOverlay = hover
-    ? <div className={s.overlay} id="uploadOverlay">{camera}</div>
+    ? <div className={overlay} id="uploadOverlay"><CameraSVG /></div>
     : null;
 
   return (
-    <div className={s.container} onMouseEnter={toggleHover} onMouseLeave={toggleHover}>
+    <div className={container} onMouseEnter={startHover} onMouseLeave={stopHover}>
       <label htmlFor="upload">
         <canvas
-          className={s.canvas}
+          className={canvasCard}
           id="originalCanvas"
           width={width}
           height={height}
           ref={imgRefSetter}
         />
         <input
-          className={s.input}
+          className={input}
           type="file"
           id="upload"
           accept=".jpg, .jpeg, .png"
@@ -38,9 +38,11 @@ const ImgCanvas = ({ imgRefSetter, handleUpload, toggleHover, hover }) => {
 
 ImgCanvas.propTypes = {
   imgRefSetter: PropTypes.func.isRequired,
-  toggleHover: PropTypes.func.isRequired,
+  startHover: PropTypes.func.isRequired,
+  stopHover: PropTypes.func.isRequired,
   hover: PropTypes.bool.isRequired,
   handleUpload: PropTypes.func.isRequired,
 };
 
+// withHover wraps this component in a component that manages hover state
 export default withHover(ImgCanvas);
