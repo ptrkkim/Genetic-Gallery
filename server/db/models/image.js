@@ -18,15 +18,15 @@ const Image = db.define('image', {
 
 const Original = Image.belongsTo(Image, { as: 'original' });
 
-Image.submit = function(original, art) {
+Image.submit = function(title, artist, originalImg, artImg) {
   return Image.create({
-    title: art.title,
-    artist: art.artist,
-    image: art.image,
+    title,
+    artist,
+    image: artImg,
     original: {
-      title: original.title,
-      artist: original.artist,
-      image: original.image,
+      title,
+      artist,
+      image: originalImg,
     }
   }, {
     include: [Original]

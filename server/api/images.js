@@ -7,8 +7,11 @@ router.get('/', (req, res, next) => {
 
 // expects {title, artist, image}
 router.post('/', (req, res, next) => {
-  const { original, art } = req.body;
-  Image.submit(original, art)
+  console.log('fields', req.fields);
+  console.log('files', req.files);
+  const { title, artist } = req.fields; // fields + files from express-formidable
+  const { originalImg, artImg } = req.files;
+  Image.submit(title, artist, originalImg, artImg)
     .then(combined => res.json(combined))
     .catch(next);
 });

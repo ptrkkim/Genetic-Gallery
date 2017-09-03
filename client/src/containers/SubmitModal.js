@@ -24,26 +24,21 @@ class SubmitModal extends Component {
   }
 
   handleSubmit = () => {
-    const original = {
-      title: this.state.title,
-      artist: this.state.artist,
-      image: this.props.originalBlob,
-    };
+    const formData = new FormData();
 
-    const art = {
-      title: this.state.title,
-      artist: this.state.artist,
-      image: this.props.originalBlob,
-    };
+    formData.append('title', this.state.title);
+    formData.append('artist', this.state.artist);
+    formData.append('originalImg', this.props.originalBlob);
+    formData.append('artImg', this.props.artBlob);
 
     const options = {
       method: 'POST',
-      body: { original, art },
+      body: formData,
     };
 
     fetch('/api/images', options)
       .then((response) => {
-        console.log(response);
+        console.log('response!!!!!', response);
         return this.props.closeModal();
       })
       .catch(err => console.error(err));
@@ -76,10 +71,20 @@ class SubmitModal extends Component {
   }
 }
 
+const blobShape = {
+  size: PropTypes.number,
+  type: PropTypes.string,
+};
+
+SubmitModal.defaultProps = {
+  originalBlob: null,
+  artBlob: null,
+};
+
 SubmitModal.propTypes = {
   closeModal: PropTypes.func.isRequired,
-  originalBlob: PropTypes.object.isRequired, // eslint-disable-line
-  artBlob: PropTypes.object.isRequired, // eslint-disable-line
+  originalBlob: PropTypes.shape(blobShape),
+  artBlob: PropTypes.shape(blobShape),
 };
 
 export default SubmitModal;

@@ -2,10 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const GalleryCard = ({ originalBlob, artBlob }) => {
-  console.log('original:::::::', originalBlob);
-  console.log('art::::::::::::', artBlob);
   const myURL = window.webkitURL || window.URL; // firefox and chrome
-  console.log(myURL);
 
   const originalURL = originalBlob
     ? myURL.createObjectURL(originalBlob)
@@ -25,9 +22,19 @@ const GalleryCard = ({ originalBlob, artBlob }) => {
   );
 };
 
+const blobShape = {
+  size: PropTypes.number,
+  type: PropTypes.string,
+};
+
+GalleryCard.defaultProps = {
+  originalBlob: null,
+  artBlob: null,
+};
+
 GalleryCard.propTypes = {
-  originalBlob: PropTypes.object.isRequired, // eslint-disable-line
-  artBlob: PropTypes.object.isRequired, // eslint-disable-line
+  originalBlob: PropTypes.shape(blobShape),
+  artBlob: PropTypes.shape(blobShape),
 };
 
 export default GalleryCard;
