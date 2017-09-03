@@ -24,16 +24,21 @@ class SubmitModal extends Component {
   }
 
   handleSubmit = () => {
-    const formData = new FormData();
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+    });
 
-    formData.append('title', this.state.title);
-    formData.append('artist', this.state.artist);
-    formData.append('originalImg', this.props.originalBlob);
-    formData.append('artImg', this.props.artBlob);
+    const body = JSON.stringify({
+      title: this.state.title,
+      artist: this.state.artist,
+      originalImg: this.props.originalSrc,
+      artImg: this.props.artSrc,
+    });
 
     const options = {
       method: 'POST',
-      body: formData,
+      headers,
+      body,
     };
 
     fetch('/api/images', options)
@@ -50,13 +55,13 @@ class SubmitModal extends Component {
   }
 
   render() {
-    const { originalBlob, artBlob, closeModal } = this.props;
+    const { originalSrc, artSrc, closeModal } = this.props;
     return (
       <div className={background} onClick={closeModal}>
         <div className={modal} onClick={this.stopPropagation}>
           <GalleryCard
-            originalBlob={originalBlob}
-            artBlob={artBlob}
+            originalSrc={originalSrc}
+            artSrc={artSrc}
           />
           <SubmitArtForm
             handleSubmit={this.handleSubmit}
@@ -71,20 +76,10 @@ class SubmitModal extends Component {
   }
 }
 
-const blobShape = {
-  size: PropTypes.number,
-  type: PropTypes.string,
-};
-
-SubmitModal.defaultProps = {
-  originalBlob: null,
-  artBlob: null,
-};
-
 SubmitModal.propTypes = {
   closeModal: PropTypes.func.isRequired,
-  originalBlob: PropTypes.shape(blobShape),
-  artBlob: PropTypes.shape(blobShape),
+  originalSrc: PropTypes.string.isRequired,
+  artSrc: PropTypes.string.isRequired,
 };
 
 export default SubmitModal;

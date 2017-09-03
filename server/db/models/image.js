@@ -11,7 +11,7 @@ const Image = db.define('image', {
     defaultValue: 'Anonymous'
   },
   image: {
-    type: Sequelize.BLOB,
+    type: Sequelize.TEXT,
     allowNull: false
   }
 });
@@ -33,8 +33,29 @@ Image.submit = function(title, artist, originalImg, artImg) {
   });
 };
 
+Image.findAllPairs = function() {
+  return Image.findAll({
+    where: {
+      originalId: { $ne: null },
+    },
+    include: [{ model: Image, as: 'original' }],
+  })
+  .then(pairs => pairs.map(pair => {
+    return {
+      title: pair.title,
+      artist: pair.artist,
+      artImg: pair.image,
+      originalImg: pair.original.image,
+    };
+  }));
+};
+
 module.exports = Image;
 /*
+UPDATE: my google-fu is not strong enough???? docs are terrible???
+Posting blobs was fine, but reading them/sending the resulting buffer was a big hassle
+Will store images as base64 encoded strings until I run into significant performance hangups
+
 Images:
 Sequelize.BLOB vs. base64 data URI with Sequelize.TEXT ?????
 

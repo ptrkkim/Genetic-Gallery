@@ -38,11 +38,11 @@ export default class ControlContainer extends Component {
   }
 
   render () {
-    const { clearEvo, ticker, originalBlob, artBlob } = this.props;
+    const { clearEvo, ticker, originalSrc, artSrc } = this.props;
     const modal = (
       <SubmitModal
-        originalBlob={originalBlob}
-        artBlob={artBlob}
+        originalSrc={originalSrc}
+        artSrc={artSrc}
         closeModal={this.closeModal}
       />
     );
@@ -72,8 +72,6 @@ export default class ControlContainer extends Component {
 
 ControlContainer.defaultProps = {
   ticker: null,
-  originalBlob: null,
-  artBlob: null,
 };
 
 ControlContainer.propTypes = {
@@ -82,7 +80,7 @@ ControlContainer.propTypes = {
   resumeEvo: PropTypes.func.isRequired,
   clearEvo: PropTypes.func.isRequired,
   openModal: PropTypes.func.isRequired,
+  originalSrc: PropTypes.string.isRequired,
+  artSrc: PropTypes.string.isRequired,
   ticker: PropTypes.func,
-  originalBlob: PropTypes.object, // eslint-disable-line
-  artBlob: PropTypes.object, // eslint-disable-line
 };

@@ -11,8 +11,8 @@ export default class CreateContainer extends Component {
     super(props);
     this.state = {
       ticker: null, // either null or a population-specific ticking func
-      originalBlob: null,
-      artBlob: null,
+      originalSrc: '',
+      artSrc: '',
       size: 50,
       polygonsPer: 125,
       numVertices: 3,
@@ -112,13 +112,12 @@ export default class CreateContainer extends Component {
   }
 
   openModal = () => {
-    this.imgCanvas.toBlob((originalBlob) => {
-      this.outCanvas.toBlob((artBlob) => {
-        this.setState({
-          originalBlob,
-          artBlob,
-        }, () => console.log('original', originalBlob, 'art', artBlob));
-      });
+    const originalSrc = this.imgCanvas.toDataURL();
+    const artSrc = this.outCanvas.toDataURL();
+
+    this.setState({
+      originalSrc,
+      artSrc,
     });
   }
 
@@ -138,8 +137,8 @@ export default class CreateContainer extends Component {
           resumeEvo={this.resumeEvolution}
           clearEvo={this.clearEvolution}
           openModal={this.openModal}
-          originalBlob={this.state.originalBlob}
-          artBlob={this.state.artBlob}
+          originalSrc={this.state.originalSrc}
+          artSrc={this.state.artSrc}
         />
       </div>
     );

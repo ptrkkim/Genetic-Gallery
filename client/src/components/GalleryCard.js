@@ -1,40 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const GalleryCard = ({ originalBlob, artBlob }) => {
-  const myURL = window.webkitURL || window.URL; // firefox and chrome
+const GalleryCard = ({ originalSrc, artSrc }) => {
+  // const myURL = window.webkitURL || window.URL; // firefox and chrome
 
-  const originalURL = originalBlob
-    ? myURL.createObjectURL(originalBlob)
-    : null;
-  const artURL = artBlob
-    ? myURL.createObjectURL(artBlob)
-    : null;
+  // const originalURL = originalSrc
+  //   ? myURL.createObjectURL(originalSrc)
+  //   : null;
+  // const artURL = artSrc
+  //   ? myURL.createObjectURL(artSrc)
+  //   : null;
 
-  const originalImg = <img src={originalURL} alt="original" />;
-  const artImg = <img src={artURL} alt="art" />;
+  const originalImg = <img src={originalSrc} alt="original" />;
+  const artImg = <img src={artSrc} alt="art" />;
 
+  console.log('ogSrc', Boolean(originalSrc));
+  console.log('artSrc', Boolean(artSrc));
   return (
     <div>
-      {originalBlob ? originalImg : null}
-      {artBlob ? artImg : null}
+      {originalSrc ? originalImg : null}
+      {artSrc ? artImg : null}
     </div>
   );
 };
 
-const blobShape = {
-  size: PropTypes.number,
-  type: PropTypes.string,
-};
-
-GalleryCard.defaultProps = {
-  originalBlob: null,
-  artBlob: null,
-};
-
 GalleryCard.propTypes = {
-  originalBlob: PropTypes.shape(blobShape),
-  artBlob: PropTypes.shape(blobShape),
+  originalSrc: PropTypes.string.isRequired,
+  artSrc: PropTypes.string.isRequired,
 };
 
 export default GalleryCard;
