@@ -2,7 +2,6 @@ A gallery site for images recreated using a genetic algorithm.<br>
 
 ## Table of Contents
 - [About](#about)
-- [How it works](#how-it-works)
 - [Scripts and setup](#scripts-and-setup)
 
 ## <a name="about"></a> About
@@ -13,9 +12,8 @@ This is a side project inspired by [Roger Alsing's Mona Lisa](https://rogerjohan
 Built on React, Node, Express, and PostgreSQL/Sequelize.
 <br>
 I also used this project to learn the [Jest](https://facebook.github.io/jest/) testing framework and [Flow.js](https://flow.org), a static type checking library. 
-
-
-## <a name="how-it-works"></a> How it works
+<br>
+This project uses [CSS Modules](https://github.com/css-modules/css-modules). Styles are colocated with their respective components, and rules are brought into components through destructured imports. 
 
 ## <a name="scripts-and-setup"></a> Scripts and setup
 
