@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GalleryCard from '../components/GalleryCard';
+import { container } from './styles/gallery.css';
 
 export default class GalleryContainer extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ export default class GalleryContainer extends Component {
     ));
 
     return (
-      <div>
+      <div className={container}>
         {cards}
       </div>
     );
