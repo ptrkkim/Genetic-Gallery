@@ -1,11 +1,24 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import s from './styles/navbar.css';
+import { navbar, inactive, active, header, title, thin, closer } from './styles/navbar.css';
 
 export default () => (
-  <div className={s.navbar}>
-    <NavLink to="/" className={s.inactive}><h2>View1</h2></NavLink>
-    <NavLink to="/create" className={s.inactive}><h2>View2</h2></NavLink>
-    <NavLink to="/learn" className={s.inactive}><h2>View3</h2></NavLink>
+  <div className={navbar}>
+    <NavLink to="/" exact className={inactive} activeClassName={active}>
+      <div className={title}>
+        <h2 className={thin}>GENETIC</h2>
+        <h2 className={closer}>GALLERY</h2>
+      </div>
+    </NavLink>
+    <NavLink to="/create" className={inactive} activeClassName={active}>
+      <div className={header}>
+        <h2>CREATE</h2>
+      </div>
+    </NavLink>
+    <NavLink to="/learn" className={inactive} activeClassName={active}>
+      <div className={header}>
+        <h2>LEARN</h2>
+      </div>
+    </NavLink>
   </div>
 );

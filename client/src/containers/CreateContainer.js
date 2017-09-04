@@ -122,7 +122,6 @@ export default class CreateContainer extends Component {
   }
 
   render () {
-    console.log('rendering!!!!!!!!!!!!!', this.state);
     return (
       <div>
         <Canvases

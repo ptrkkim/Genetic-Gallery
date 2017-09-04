@@ -1,15 +1,48 @@
+.active {
+  text-decoration: none;
+  color: #303030;
+}
+
 .navbar {
+  composes: fancy from './typography.css';
+  composes: primaryBg from './colors.css';
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: flex-end;
-  background-color: #ffdede;
   height: 100px;
-  padding: 0px 100px;
-  color: white;
+  color: black;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .inactive {
-  font-weight: bold;
-  text-decoration: none;
-  color: #222;
-};
+  transition: all .4s ease;
+}
+
+.inactive:hover {
+  color: #303030;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  width: 300px;
+  margin: 0px 10px 8px;
+}
+
+.title {
+  composes: header;
+  flex-direction: column;
+  font-size: 1.8rem;
+}
+
+.thin {
+  font-weight: 200;
+}
+
+.closer {
+  composes: thin;
+  margin-top: -10px;
+  margin-bottom: -3px;
+}
+
+

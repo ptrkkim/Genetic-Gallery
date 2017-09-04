@@ -19,6 +19,7 @@
     "morgan": "^1.8.2",
     "pg": "6.4.1",
     "pg-hstore": "^2.3.2",
+    "react-router-dom": "^4.2.2",
     "sequelize": "^4.7.5"
   },
   "devDependencies": {
