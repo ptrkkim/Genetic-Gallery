@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { navbar, inactive, active, header, title, thin, closer } from './styles/navbar.css';
 
 export default () => (
-  <div className={navbar}>
+  <nav className={navbar}>
     <NavLink to="/" exact className={inactive} activeClassName={active}>
       <div className={title}>
         <h2 className={thin}>GENETIC</h2>
@@ -20,5 +20,5 @@ export default () => (
         <h2>LEARN</h2>
       </div>
     </NavLink>
-  </div>
+  </nav>
 );

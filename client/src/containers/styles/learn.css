@@ -1,0 +1,21 @@
+.container {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #222;
+}
+
+.header {
+  composes: fancy from '../../components/styles/typography.css';
+}
+
+.link {
+  text-decoration: underline;
+  color: #79A3DE
+}
+
+.link:visited {
+  color:#609
+}
