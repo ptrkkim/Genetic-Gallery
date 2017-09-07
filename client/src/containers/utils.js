@@ -39,7 +39,7 @@ export const makeTicker = (
   offCtx: CanvasRenderingContext2D,
   resolution: number,
   ) => () => {
-    const t0 = performance.now();
+    // const t0 = performance.now();
     outCtx.clearRect(0, 0, resolution, resolution);
     offCtx.clearRect(0, 0, resolution, resolution);
     population.evolveNextGen();
@@ -48,6 +48,6 @@ export const makeTicker = (
     fittest.draw(offCtx, resolution);
     outCtx.drawImage(offCanvas, 0, 0, resolution, resolution);
 
-    const t1 = performance.now();
-    console.log(`generation took ${t1 - t0} ms`);
+    // const t1 = performance.now();
+    // console.log(`generation took ${t1 - t0} ms`);
   };

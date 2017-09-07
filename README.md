@@ -17,7 +17,10 @@ This project uses [CSS Modules](https://github.com/css-modules/css-modules). Sty
 
 ## <a name="scripts-and-setup"></a> Scripts and setup
 
+Make sure Postgres is installed. This app will attempt to create a database named 'genetic-gallery.'
+
 From the project directory, you can use [yarn](https://yarnpkg.com/en/) or [npm](https://www.npmjs.com/) to run:
+
 
 ### `yarn start`
 
