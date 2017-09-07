@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Intro from './Intro';
+import Learn from '../containers/LearnContainer';
 import Gallery from '../containers/GalleryContainer';
 import Create from '../containers/CreateContainer';
 
@@ -10,8 +10,8 @@ export default () => (
     <Switch>
       <Route exact path="/" component={Gallery} />
       <Route path="/create" component={Create} />
-      <Route path="/learn" component={Intro} />
-      <Route component={Intro} />
+      <Route path="/learn" component={Learn} />
+      <Route component={Gallery} />
     </Switch>
   </main>
 );

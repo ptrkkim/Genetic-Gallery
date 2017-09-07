@@ -29,8 +29,20 @@ const listenUp = () =>
   app.listen(PORT, () =>
     console.log(`listening on port ${PORT}`));
 
-const syncDb = () =>
-  db.sync();
+const syncDb = (retries=0, maxRetries=3) =>
+  db.sync()
+    .then(() => console.log('Synced models to db'))
+    .catch(() => {
+      if (process.env.NODE_ENV === 'production' || retries > maxRetries) {
+        console.error(`*************** database error ***************`);
+        console.error(`  Could not connect to supplied database URL  `);
+        console.error(`**********************************************`);
+      }
+
+      return new Promise(resolve =>
+        require('child_process').exec(`createdb "genetic-gallery"`, resolve)
+      ).then(() => syncDb(retries + 1));
+    });
   // db.sync({ force: true });
 
 syncDb()

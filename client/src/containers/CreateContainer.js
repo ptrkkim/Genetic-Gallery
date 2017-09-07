@@ -14,7 +14,7 @@ export default class CreateContainer extends Component {
       originalSrc: '',
       artSrc: '',
       size: 50,
-      polygonsPer: 125,
+      polygonsPer: 75,
       numVertices: 3,
       crossoverChance: 0.3,
       mutateChance: 0.01,
@@ -122,7 +122,6 @@ export default class CreateContainer extends Component {
   }
 
   render () {
-    console.log('rendering!!!!!!!!!!!!!', this.state);
     return (
       <div>
         <Canvases

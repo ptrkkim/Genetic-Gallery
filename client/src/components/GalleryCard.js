@@ -1,25 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createBackdrop } from '../containers/utils';
+import { container, art, moveArt } from './styles/galleryCard.css';
 
 const GalleryCard = ({ originalSrc, artSrc }) => {
-  // const myURL = window.webkitURL || window.URL; // firefox and chrome
-
-  // const originalURL = originalSrc
-  //   ? myURL.createObjectURL(originalSrc)
-  //   : null;
-  // const artURL = artSrc
-  //   ? myURL.createObjectURL(artSrc)
-  //   : null;
+  const bgSrc = createBackdrop('white', 300);
 
   const originalImg = <img src={originalSrc} alt="original" />;
-  const artImg = <img src={artSrc} alt="art" />;
+  const backdrop = <img src={bgSrc} alt="bg" />;
+  const artImg = <img className={moveArt} src={artSrc} alt="art" />;
 
-  console.log('ogSrc', Boolean(originalSrc));
-  console.log('artSrc', Boolean(artSrc));
   return (
-    <div>
-      {originalSrc ? originalImg : null}
-      {artSrc ? artImg : null}
+    <div className={container}>
+      {originalImg}
+      <div className={art}>
+        {backdrop}
+        {artImg}
+      </div>
     </div>
   );
 };
