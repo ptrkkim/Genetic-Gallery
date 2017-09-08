@@ -8,7 +8,9 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server/index.js",
     "client": "node startClient.js",
-    "test": "node testClient.js"
+    "test": "node testClient.js",
+    "build": "node client/scripts/build.js",
+    "flow": "cd client && flow"
   },
   "author": "Patrick Kim",
   "license": "ISC",
