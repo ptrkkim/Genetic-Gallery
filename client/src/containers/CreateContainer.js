@@ -46,6 +46,16 @@ export default class CreateContainer extends Component {
     }
   }
 
+  setModalImages = () => {
+    const originalSrc = this.imgCanvas.toDataURL();
+    const artSrc = this.outCanvas.toDataURL();
+
+    this.setState({
+      originalSrc,
+      artSrc,
+    });
+  }
+
   startEvolution = () => {
     // for performant offscreen rendering/fitness calculation
     const fullResolution = 300;
@@ -111,16 +121,6 @@ export default class CreateContainer extends Component {
     }
   }
 
-  openModal = () => {
-    const originalSrc = this.imgCanvas.toDataURL();
-    const artSrc = this.outCanvas.toDataURL();
-
-    this.setState({
-      originalSrc,
-      artSrc,
-    });
-  }
-
   render () {
     return (
       <div>
@@ -135,7 +135,7 @@ export default class CreateContainer extends Component {
           pauseEvo={this.pauseEvolution}
           resumeEvo={this.resumeEvolution}
           clearEvo={this.clearEvolution}
-          openModal={this.openModal}
+          setModalImages={this.setModalImages}
           originalSrc={this.state.originalSrc}
           artSrc={this.state.artSrc}
         />
