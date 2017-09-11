@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// artist/title code commented out for now, not essential for MVP
 const SubmitArtForm = (props) => {
   const {
-    handleArtist,
-    handleTitle,
+    // handleArtist,
+    // handleTitle,
     handleSubmit,
-    titleValue,
-    artistValue,
+    // titleValue,
+    // artistValue,
   } = props;
 
   return (
     <div>
-      <input onChange={handleTitle} value={titleValue} />
-      <input onChange={handleArtist} value={artistValue} />
+
       <button onClick={handleSubmit}>Submit</button>
     </div>
   );
@@ -21,10 +21,10 @@ const SubmitArtForm = (props) => {
 
 SubmitArtForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  handleArtist: PropTypes.func.isRequired,
-  handleTitle: PropTypes.func.isRequired,
-  titleValue: PropTypes.string.isRequired,
-  artistValue: PropTypes.string.isRequired,
+  // handleArtist: PropTypes.func.isRequired,
+  // handleTitle: PropTypes.func.isRequired,
+  // titleValue: PropTypes.string.isRequired,
+  // artistValue: PropTypes.string.isRequired,
 };
 
 export default SubmitArtForm;
