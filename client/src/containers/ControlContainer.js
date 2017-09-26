@@ -38,6 +38,15 @@ export default class ControlContainer extends Component {
     this.setState({ showModal: false });
   }
 
+  submit = () => {
+    this.props.pauseEvo();
+    this.props.openModal();
+    this.setState({
+      isPlaying: false,
+      showModal: true,
+    });
+  }
+
   render () {
     const { clearEvo, ticker, originalSrc, artSrc } = this.props;
 
@@ -57,6 +66,7 @@ export default class ControlContainer extends Component {
         isPlaying={this.state.isPlaying}
         pause={this.pause}
         resume={this.resume}
+        submit={this.submit}
         clear={clearEvo}
       />
     );
