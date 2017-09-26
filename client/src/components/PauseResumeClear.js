@@ -4,14 +4,14 @@ import { pauseBtn, resumeBtn, clearBtn, submitBtn } from '../containers/styles/b
 
 const PauseResumeClear = ({ pause, resume, clear, isPlaying }) => {
   const pauseOrResume = isPlaying
-    ? <button className={pauseBtn} onClick={pause}>Pause</button>
-    : <button className={resumeBtn} onClick={resume}>Resume</button>;
+    ? <button className={pauseBtn} onClick={pause}>PAUSE</button>
+    : <button className={resumeBtn} onClick={resume}>RESUME</button>;
 
   return (
     <div>
       {pauseOrResume}
-      <button className={clearBtn} onClick={clear}>Clear</button>
-      <button className={submitBtn} onClick={this.openModal}>Submit</button>
+      <button className={clearBtn} onClick={clear}>CLEAR</button>
+      <button className={submitBtn} onClick={this.openModal}>SUBMIT</button>
     </div>
   );
 };

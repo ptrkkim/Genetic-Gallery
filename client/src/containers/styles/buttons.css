@@ -67,25 +67,6 @@
   background: #93b7be;
 }
 
-/* .ghost-button {
-  color: #009688;
-  background: #fff;
-  border: 1px solid #009688;
-  font-size: 17px;
-  padding: 7px 12px;
-  font-weight: normal;
-  margin: 6px 0;
-  margin-right: 12px;
-  display: inline-block;
-  text-decoration: none;
-  font-family: 'Open Sans', sans-serif;
-  min-width: 120px;
-} */
-
-.ghost-button:hover, .ghost-button:active {
-color:#fff;
-background:#009688;
-}
 /* 
 green 9FB798
   dark sea green #8FB996

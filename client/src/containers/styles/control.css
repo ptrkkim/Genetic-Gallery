@@ -6,3 +6,12 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.title {
+  composes: text from '../../components/styles/typography.css';
+  margin-top: 2px;
+}
+
+.para {
+  composes: text from '../../components/styles/typography.css';
+}
