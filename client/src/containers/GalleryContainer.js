@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { CSSTransitionGroup } from 'react-transition-group';
 import GalleryCard from '../components/GalleryCard';
 import { container } from './styles/gallery.css';
 
@@ -36,9 +37,15 @@ export default class GalleryContainer extends Component {
     ));
 
     return (
-      <div className={container}>
+      <CSSTransitionGroup
+        component="div"
+        className={container}
+        transitionName="fade"
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={500}
+      >
         {cards}
-      </div>
+      </CSSTransitionGroup>
     );
   }
 }
