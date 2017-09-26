@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { pauseBtn, resumeBtn, clearBtn, submitBtn } from '../containers/styles/buttons.css';
+import { pauseBtn, resumeBtn, clearBtn, submitBtn } from '../styles/buttons.css';
 
 const PauseResumeClear = ({ pause, resume, clear, isPlaying }) => {
   const pauseOrResume = isPlaying

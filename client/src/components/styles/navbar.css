@@ -4,8 +4,8 @@
 }
 
 .navbar {
-  composes: fancy from './typography.css';
-  composes: primaryBg from './colors.css';
+  composes: fancy from '../../styles/typography.css';
+  composes: primaryBg from '../../styles/colors.css';
   display: flex;
   justify-content: center;
   align-items: flex-end;
