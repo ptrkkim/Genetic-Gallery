@@ -5,6 +5,7 @@ import Canvases from '../components/Canvases';
 import { Population } from '../algorithm/population';
 import { makeCanvases, getContexts, makeTicker } from './utils';
 import fullstackLogo from '../images/fullstack.png';
+import { container } from './styles/create.css';
 
 export default class CreateContainer extends Component {
   constructor (props) {
@@ -123,7 +124,7 @@ export default class CreateContainer extends Component {
 
   render () {
     return (
-      <div>
+      <div className={container}>
         <Canvases
           imgRefSetter={(imgCanvas) => { this.imgCanvas = imgCanvas; }}
           outRefSetter={(outCanvas) => { this.outCanvas = outCanvas; }}

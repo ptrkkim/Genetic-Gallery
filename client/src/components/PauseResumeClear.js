@@ -10,6 +10,7 @@ const PauseResumeClear = ({ pause, resume, clear, isPlaying }) => {
     <div>
       {pauseOrResume}
       <button onClick={clear}>Clear</button>
+      <button onClick={this.openModal}>Submit</button>
     </div>
   );
 };

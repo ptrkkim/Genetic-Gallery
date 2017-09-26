@@ -1,28 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withHover from '../HOCs/withHover';
 import CameraSVG from './CameraSVG';
 import { overlay, container, canvasCard, input } from './styles/imgCanvas.css';
 
 // for displaying and uploading original reference images
-const ImgCanvas = ({ imgRefSetter, handleUpload, startHover, stopHover, hover }) => {
+const ImgCanvas = ({ imgRefSetter, handleUpload }) => {
   const width = 300;
   const height = 300;
 
-  const uploadOverlay = hover
-    ? <div className={overlay} id="uploadOverlay"><CameraSVG /></div>
-    : null;
+  const uploadOverlay = <div className={overlay} id="uploadOverlay"><CameraSVG /></div>;
 
   return (
-    <div className={container} onMouseEnter={startHover} onMouseLeave={stopHover}>
+    <div className={container}>
       <label htmlFor="upload">
-        <canvas
-          className={canvasCard}
-          id="originalCanvas"
-          width={width}
-          height={height}
-          ref={imgRefSetter}
-        />
+        <div className={canvasCard}>
+          <canvas
+
+            id="originalCanvas"
+            width={width}
+            height={height}
+            ref={imgRefSetter}
+          />
+          {uploadOverlay}
+        </div>
         <input
           className={input}
           type="file"
@@ -30,7 +30,6 @@ const ImgCanvas = ({ imgRefSetter, handleUpload, startHover, stopHover, hover })
           accept=".jpg, .jpeg, .png"
           onChange={handleUpload}
         />
-        {uploadOverlay}
       </label>
     </div>
   );
@@ -38,11 +37,8 @@ const ImgCanvas = ({ imgRefSetter, handleUpload, startHover, stopHover, hover })
 
 ImgCanvas.propTypes = {
   imgRefSetter: PropTypes.func.isRequired,
-  startHover: PropTypes.func.isRequired,
-  stopHover: PropTypes.func.isRequired,
-  hover: PropTypes.bool.isRequired,
   handleUpload: PropTypes.func.isRequired,
 };
 
 // withHover wraps this component in a component that manages hover state
-export default withHover(ImgCanvas);
+export default ImgCanvas;

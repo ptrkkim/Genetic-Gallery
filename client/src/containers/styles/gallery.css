@@ -3,6 +3,14 @@
   justify-content: center;
 }
 
+.contentBox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  width: 960px;
+
+}
+
 :global(.fade-enter) {
   opacity: 0.01;
 }

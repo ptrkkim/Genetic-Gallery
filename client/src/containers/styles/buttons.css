@@ -1,0 +1,9 @@
+.button {
+  display: block;
+  border-style: none;
+  width: 100%;
+}
+
+.start {
+  composes: button;
+}

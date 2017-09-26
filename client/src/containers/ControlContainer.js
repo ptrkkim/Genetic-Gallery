@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import PauseResumeClear from '../components/PauseResumeClear';
 import SubmitModal from './SubmitModal';
 import { container } from './styles/control.css';
+import { start } from './styles/buttons.css';
 
 export default class ControlContainer extends Component {
   constructor(props) {
@@ -39,6 +40,9 @@ export default class ControlContainer extends Component {
 
   render () {
     const { clearEvo, ticker, originalSrc, artSrc } = this.props;
+
+    const instructions = `This is where I tell you how to use the app. Press buttons to do stuff and press other buttons to do other things. Haha genetic algorithms`; // eslint-disable-line 
+
     const modal = (
       <SubmitModal
         originalSrc={originalSrc}
@@ -58,13 +62,13 @@ export default class ControlContainer extends Component {
 
     const startOrPauseResumeClear = ticker
       ? prcComponent
-      : <button onClick={this.start}>Start</button>;
+      : <button className={start} onClick={this.start}>Start</button>;
 
     return (
       <div className={container}>
+        <p>{instructions}</p>
         {this.state.showModal ? modal : null}
         {startOrPauseResumeClear}
-        <button onClick={this.openModal}>Submit</button>
       </div>
     );
   }
