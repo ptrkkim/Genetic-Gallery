@@ -1,0 +1,89 @@
+.button {
+  display: block;
+  border-style: none;
+  width: 100%;
+  text-decoration: none;
+  background: #fff;
+  margin-top: -1px;
+  padding: 7px 12px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+  border: 1px solid #8F9491;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.startBtn {
+  composes: button;
+  color: #8FB996;
+}
+
+.startBtn:hover, .startBtn:active {
+  color: #fff;
+  background: #8FB996;
+}
+
+.resumeBtn {
+  composes: button;
+  color: #8FB996;
+}
+
+.resumeBtn:hover, .resumeBtn:active {
+  color: #fff;
+  background: #8FB996;
+}
+
+.pauseBtn {
+  composes: button;
+  color: #CC8B86;
+}
+
+.pauseBtn:hover, .pauseBtn:active {
+  color: #fff;
+  background: #CC8B86;
+}
+
+
+.clearBtn {
+  composes: button;
+  color: #8F9491;
+}
+
+.clearBtn:hover, .clearBtn:active {
+  color: #fff;
+  background: #8F9491;
+}
+
+.submitBtn {
+  composes: button;
+  color: #93b7be;
+}
+
+.submitBtn:hover, .submitBtn:active {
+  color: #fff;
+  background: #93b7be;
+}
+
+/* 
+green 9FB798
+  dark sea green #8FB996
+  eton blue #A1CCA5
+  xanadu #709775
+  wintergreen dream #558B6E
+  cambridge blue #AAC0AA
+red DB7F8E
+  coconut #94524A
+  shimmering blush
+  fiery rose #F45B69
+  ruby red #A31621
+  deep chestnut #BF4342
+  puce #CC8B86
+  pastel red #ED6A5E
+
+spanish gray #8F9491
+
+blue #93b7be
+*/

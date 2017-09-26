@@ -187,7 +187,7 @@ module.exports = {
             loader: require.resolve('css-loader'),
             options: {
               importLoaders: 1,
-              modules: true,
+              modules: true, // introduce CSS Modules, below is naming convention for locally scoped rules
               localIdentName: '[name]__[local]___[hash:base64:5]',
             },
           },

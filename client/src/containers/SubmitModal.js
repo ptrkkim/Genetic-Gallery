@@ -13,6 +13,18 @@ class SubmitModal extends Component {
     };
   }
 
+  componentDidMount() {
+    document.addEventListener('keydown', this.escape, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.escape, false);
+  }
+
+  escape = (event) => {
+    if (event.keyCode === 27) this.props.closeModal(); // ESC key
+  }
+
   handleTitle = (evt) => {
     const title = evt.target.value;
     this.setState({ title });

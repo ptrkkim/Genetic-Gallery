@@ -1,9 +1,10 @@
 .container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  margin-top: 5px;
+  width: 640px;
+  justify-content: flex-start;
 }
 
 .canvasCard {
-  composes: canvasCard from './canvas.css';
+  composes: canvasCard from './imgCanvas.css';
 }

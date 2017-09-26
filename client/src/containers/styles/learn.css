@@ -8,7 +8,7 @@
 }
 
 .header {
-  composes: fancy from '../../components/styles/typography.css';
+  composes: fancy from '../../styles/typography.css';
 }
 
 .link {
