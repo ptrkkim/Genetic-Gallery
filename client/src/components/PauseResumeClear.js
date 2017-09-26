@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { pauseBtn, resumeBtn, clearBtn, submitBtn } from '../containers/styles/buttons.css';
 
 const PauseResumeClear = ({ pause, resume, clear, isPlaying }) => {
   const pauseOrResume = isPlaying
-    ? <button onClick={pause}>Pause</button>
-    : <button onClick={resume}>Resume</button>;
+    ? <button className={pauseBtn} onClick={pause}>Pause</button>
+    : <button className={resumeBtn} onClick={resume}>Resume</button>;
 
   return (
     <div>
       {pauseOrResume}
-      <button onClick={clear}>Clear</button>
-      <button onClick={this.openModal}>Submit</button>
+      <button className={clearBtn} onClick={clear}>Clear</button>
+      <button className={submitBtn} onClick={this.openModal}>Submit</button>
     </div>
   );
 };

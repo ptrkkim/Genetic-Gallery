@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import PauseResumeClear from '../components/PauseResumeClear';
 import SubmitModal from './SubmitModal';
 import { container } from './styles/control.css';
-import { start } from './styles/buttons.css';
+import { startBtn } from './styles/buttons.css';
 
 export default class ControlContainer extends Component {
   constructor(props) {
@@ -62,7 +62,7 @@ export default class ControlContainer extends Component {
 
     const startOrPauseResumeClear = ticker
       ? prcComponent
-      : <button className={start} onClick={this.start}>Start</button>;
+      : <button className={startBtn} onClick={this.start}>Start</button>;
 
     return (
       <div className={container}>
