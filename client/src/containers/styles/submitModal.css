@@ -1,6 +1,7 @@
 .background {
   display: flex;
   justify-content: center;
+  align-items: center;
   position: fixed;
   z-index: 10;
   left: 0;
@@ -12,9 +13,19 @@
 }
 
 .modal {
+  display: flex;
+  width: 400px;
+  height: 450px;
+  flex-direction: column;
+  align-items: center;
   background: white;
   border: 5px solid #222;
   z-index: 11;
 
+}
+
+.preview {
+  composes: fancy from '../../styles/typography.css';
+  margin-bottom: 0px;
 }
 

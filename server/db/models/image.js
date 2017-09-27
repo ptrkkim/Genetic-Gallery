@@ -33,8 +33,11 @@ Image.submit = function(title, artist, originalImg, artImg) {
   });
 };
 
-Image.findAllPairs = function() {
+Image.findAllPairs = function(offset = 0, limit = 15, sortBy) {
   return Image.findAll({
+    offset,
+    limit,
+    order: [sortBy],
     where: {
       originalId: { $ne: null },
     },
@@ -47,6 +50,7 @@ Image.findAllPairs = function() {
       artist: pair.artist,
       artImg: pair.image,
       originalImg: pair.original.image,
+      createdAt: pair.createdAt,
     };
   }));
 };

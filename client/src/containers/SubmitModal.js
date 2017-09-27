@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import GalleryCard from '../components/GalleryCard';
 import SubmitArtForm from '../components/SubmitArtForm';
-import { background, modal } from './styles/submitModal.css';
+import { background, modal, preview } from './styles/submitModal.css';
 
 class SubmitModal extends Component {
   constructor(props) {
@@ -68,6 +68,7 @@ class SubmitModal extends Component {
     return (
       <div className={background} onClick={closeModal}>
         <div className={modal} onClick={this.stopPropagation}>
+          <h1 className={preview}>PREVIEW</h1>
           <GalleryCard
             originalSrc={originalSrc}
             artSrc={artSrc}

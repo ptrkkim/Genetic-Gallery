@@ -1,0 +1,5 @@
+.submitBtn {
+  composes: submitBtn from '../../styles/buttons.css';
+  width: 300px;
+  margin-top: 5px;
+}

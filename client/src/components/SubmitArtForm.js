@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { submitBtn } from './styles/submitForm.css';
 
 // artist/title code commented out for now, not essential for MVP
 const SubmitArtForm = (props) => {
   const {
+    handleSubmit,
     // handleArtist,
     // handleTitle,
-    handleSubmit,
     // titleValue,
     // artistValue,
   } = props;
@@ -14,7 +15,7 @@ const SubmitArtForm = (props) => {
   return (
     <div>
 
-      <button onClick={handleSubmit}>Submit</button>
+      <button className={submitBtn} onClick={handleSubmit}>Submit</button>
     </div>
   );
 };

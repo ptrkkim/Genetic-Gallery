@@ -15,3 +15,9 @@
 .para {
   composes: text from '../../styles/typography.css';
 }
+
+@media (min-width: 655px) and (max-width: 974px) {
+  .container {
+    width: 625px;
+  }
+}

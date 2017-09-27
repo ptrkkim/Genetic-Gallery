@@ -19,7 +19,7 @@ export const hideModal = (): hideAction => ({ type: HIDE_MODAL });
 
 
 const initialState = {
-  show: true,
+  show: false,
 };
 
 function modalReducer (state: State = initialState, action: Action): State {
