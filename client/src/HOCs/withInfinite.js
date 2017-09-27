@@ -13,9 +13,6 @@ export default function withInfinite (WrappedComponent) {
     onScroll = () => {
       const { loadMore, loadArgs, isLoading, hasMore } = this.props; // eslint-disable-line
       const atBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500);
-      console.log('height', window.innerHeight);
-      console.log('scroll', window.scrollY);
-      console.log('offset', document.body.offsetHeight);
       if (atBottom && !isLoading && hasMore) loadMore(...loadArgs);
     }
 
