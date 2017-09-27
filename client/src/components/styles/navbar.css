@@ -8,7 +8,6 @@
   composes: primaryBg from '../../styles/colors.css';
   display: flex;
   justify-content: center;
-  align-items: flex-end;
   height: 100px;
   color: black;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -22,14 +21,18 @@
   color: #303030;
 }
 
+.linkBox {
+  display: flex;
+}
+
 .header {
   display: flex;
   justify-content: center;
-  width: 300px;
+  width: auto;
   margin: 0px 10px 8px;
 }
 
-.title {
+.titleBox {
   composes: header;
   flex-direction: column;
   font-size: 1.8rem;
@@ -39,10 +42,61 @@
   font-weight: 200;
 }
 
-.closer {
+.genetic {
+  composes: thin;
+}
+
+.gallery {
   composes: thin;
   margin-top: -10px;
   margin-bottom: -3px;
 }
+
+@media (min-width: 975px) {
+  .linkBox {
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  .header {
+    width: 300px;
+  }
+}
+
+@media (min-width: 655px) and (max-width: 974px) {
+  .navbar {
+    justify-content: flex-start;
+  }
+
+  .linkBox {
+    justify-content: flex-start;
+    align-items: flex-end;
+    margin-left: 7px;
+  }
+}
+
+@media (max-width: 654px) {
+  .navbar {
+    justify-content: flex-start;
+    height: 135px;
+  }
+
+  .linkBox {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 7px;
+  }
+
+  .genetic {
+    display: none;
+    margin: 5px 0 -6px;
+  }
+
+  .gallery {
+    margin: 5px 0 -6px;
+  }
+  
+}
+
 
 
