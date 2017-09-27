@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import PauseResumeClear from '../components/PauseResumeClear';
 import SubmitModal from './SubmitModal';
 import { container, title, para } from './styles/control.css';
 import { startBtn } from '../styles/buttons.css';
+import { showModal, hideModal } from '../reducers/modal';
 
-export default class ControlContainer extends Component {
+class ControlContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isPlaying: false,
-      showModal: false,
     };
   }
 
@@ -30,25 +31,21 @@ export default class ControlContainer extends Component {
   }
 
   openModal = () => {
-    this.props.openModal();
-    this.setState({ showModal: true });
-  }
-
-  closeModal = () => {
-    this.setState({ showModal: false });
+    this.props.setModalImages();
+    this.props.showModal();
   }
 
   submit = () => {
     this.props.pauseEvo();
-    this.props.openModal();
+    this.props.setModalImages();
+    this.props.showModal();
     this.setState({
       isPlaying: false,
-      showModal: true,
     });
   }
 
   render () {
-    const { clearEvo, ticker, originalSrc, artSrc } = this.props;
+    const { show, clearEvo, ticker, originalSrc, artSrc } = this.props;
 
     const instructions1 = `Press Start to begin evolving a new, unique approximation of the original image.`; // eslint-disable-line 
     const instructions2 = `Click on the original image to upload your own.`; // eslint-disable-line 
@@ -57,7 +54,7 @@ export default class ControlContainer extends Component {
       <SubmitModal
         originalSrc={originalSrc}
         artSrc={artSrc}
-        closeModal={this.closeModal}
+        closeModal={this.props.hideModal}
       />
     );
 
@@ -82,12 +79,17 @@ export default class ControlContainer extends Component {
           <p className={para}>{instructions1}</p>
           <p className={para}>{instructions2}</p>
         </div>
-        {this.state.showModal ? modal : null}
+        {show ? modal : null}
         {startOrPauseResumeClear}
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({ show: state.modal.show });
+const mapDispatchToProps = { showModal, hideModal };
+
+export default connect(mapStateToProps, mapDispatchToProps)(ControlContainer);
 
 ControlContainer.defaultProps = {
   ticker: null,
@@ -98,8 +100,11 @@ ControlContainer.propTypes = {
   pauseEvo: PropTypes.func.isRequired,
   resumeEvo: PropTypes.func.isRequired,
   clearEvo: PropTypes.func.isRequired,
-  openModal: PropTypes.func.isRequired,
+  setModalImages: PropTypes.func.isRequired,
   originalSrc: PropTypes.string.isRequired,
   artSrc: PropTypes.string.isRequired,
   ticker: PropTypes.func,
+  showModal: PropTypes.func.isRequired,
+  hideModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
 };

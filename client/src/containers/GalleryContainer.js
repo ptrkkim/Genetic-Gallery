@@ -27,7 +27,7 @@ class GalleryContainer extends Component {
   }
 
   render () {
-    const cards = this.state.imagePairs.map(pair => (
+    const cards = this.props.imagePairs.map(pair => (
       <GalleryCard
         key={pair.id}
         originalSrc={pair.originalImg}

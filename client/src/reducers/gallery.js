@@ -51,7 +51,7 @@ function galleryReducer (state: State = initialState, action: Action): State {
     case ADD_IMAGES:
       return {
         ...state,
-        imagePairs: [...state.imagePairs.concat, ...action.images],
+        imagePairs: [...state.imagePairs, ...action.images],
       };
     default:
       return state;

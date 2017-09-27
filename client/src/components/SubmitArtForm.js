@@ -5,9 +5,9 @@ import { submitBtn } from './styles/submitForm.css';
 // artist/title code commented out for now, not essential for MVP
 const SubmitArtForm = (props) => {
   const {
+    handleSubmit,
     // handleArtist,
     // handleTitle,
-    handleSubmit,
     // titleValue,
     // artistValue,
   } = props;
