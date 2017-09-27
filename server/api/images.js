@@ -16,7 +16,7 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/:page/:sortBy', (req, res, next) => {
-  const limit = 15;
+  const limit = 12;
   const offset = +req.params.page * limit;
   let sortBy;
 

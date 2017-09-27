@@ -1,52 +1,27 @@
 import React, { Component } from 'react';
-import { CSSTransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import GalleryCard from '../components/GalleryCard';
+import Gallery from '../components/Gallery';
 import { getMoreImages } from '../reducers/gallery';
-import { container, contentBox } from './styles/gallery.css';
 
 class GalleryContainer extends Component {
   componentDidMount() {
     if (!this.props.imagePairs.length) {
-      this.props.getMoreImages(0, this.props.sortBy);
+      this.props.loadMore(0, this.props.sortBy);
     }
-    // fetch('/api/images/0/new')
-    //   .then(response => response.json())
-    //   .then((foundPairs) => {
-    //     const imagePairs = foundPairs.map(pair => ({
-    //       id: pair.id,
-    //       title: pair.title,
-    //       artist: pair.artist,
-    //       artImg: pair.artImg,
-    //       originalImg: pair.originalImg,
-    //     }));
-
-    //     this.setState({ imagePairs });
-    //   });
   }
 
   render () {
-    const cards = this.props.imagePairs.map(pair => (
-      <GalleryCard
-        key={pair.id}
-        originalSrc={pair.originalImg}
-        artSrc={pair.artImg}
-      />
-    ));
+    const { page, imagePairs, sortBy, loadMore, isLoading, hasMore } = this.props;
 
     return (
-      <div className={container}>
-        <CSSTransitionGroup
-          component="div"
-          className={contentBox}
-          transitionName="fade"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={500}
-        >
-          {cards}
-        </CSSTransitionGroup>
-      </div>
+      <Gallery
+        loadMore={loadMore}
+        loadArgs={[page, sortBy]}
+        hasMore={hasMore}
+        isLoading={isLoading}
+        images={imagePairs}
+      />
     );
   }
 }
@@ -54,17 +29,25 @@ class GalleryContainer extends Component {
 GalleryContainer.propTypes = {
   imagePairs: PropTypes.array.isRequired, // eslint-disable-line
   sortBy: PropTypes.string.isRequired,
-  getMoreImages: PropTypes.func.isRequired,
+  loadMore: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  hasMore: PropTypes.bool.isRequired,
+  page: PropTypes.number.isRequired,
 };
 
 // export default GalleryContainer;
 const mapStateToProps = ({ gallery }) => ({
   imagePairs: gallery.imagePairs,
   sortBy: gallery.sortBy,
+  isLoading: gallery.isLoading,
+  hasMore: gallery.hasMore,
+  page: gallery.page,
 });
 
-const mapDispatchToProps = {
-  getMoreImages,
-};
+const mapDispatchToProps = dispatch => ({
+  loadMore (page, sortOrder) {
+    dispatch(getMoreImages(page, sortOrder));
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(GalleryContainer);
