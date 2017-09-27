@@ -125,11 +125,6 @@ export default class CreateContainer extends Component {
   render () {
     return (
       <div className={container}>
-        <Canvases
-          imgRefSetter={(imgCanvas) => { this.imgCanvas = imgCanvas; }}
-          outRefSetter={(outCanvas) => { this.outCanvas = outCanvas; }}
-          handleUpload={this.handleUpload}
-        />
         <ControlContainer
           ticker={this.state.ticker}
           startEvo={this.startEvolution}
@@ -139,6 +134,11 @@ export default class CreateContainer extends Component {
           openModal={this.openModal}
           originalSrc={this.state.originalSrc}
           artSrc={this.state.artSrc}
+        />
+        <Canvases
+          imgRefSetter={(imgCanvas) => { this.imgCanvas = imgCanvas; }}
+          outRefSetter={(outCanvas) => { this.outCanvas = outCanvas; }}
+          handleUpload={this.handleUpload}
         />
       </div>
     );
