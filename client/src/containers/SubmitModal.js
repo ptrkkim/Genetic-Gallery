@@ -54,7 +54,11 @@ class SubmitModal extends Component {
     };
 
     fetch('/api/images', options)
-      .then(() => this.props.closeModal())
+      .then(response => response.json())
+      .then((createdImage) => {
+        console.log('IMAGE!!!!', createdImage);
+        this.props.closeModal();
+      })
       .catch(err => console.error(err));
   }
 
