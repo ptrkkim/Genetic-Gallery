@@ -15,7 +15,7 @@ export default class CreateContainer extends Component {
       originalSrc: '',
       artSrc: '',
       size: 50,
-      polygonsPer: 100,
+      polygonsPer: 150,
       numVertices: 3,
       crossoverChance: 0.3,
       mutateChance: 0.01,
