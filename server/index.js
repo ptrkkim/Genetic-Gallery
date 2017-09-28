@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const db = require('./db');
 const api = require('./api');
+const path = require('path');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -19,6 +20,7 @@ const appSetup = () => app
   .use(bodyParser.json({ limit: '8mb' }))
   .use(bodyParser.urlencoded({ extended: true }))
   .use('/api', api)
+  .get('/*', (req, res) => res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html')))
   .use(function (err, req, res, next) {
     console.log('Error message:', err.message);
     console.log(err.stack);
