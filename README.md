@@ -1,5 +1,7 @@
 A gallery site for images recreated using a genetic algorithm.<br>
 
+This app is now deployed at [geneticgallery.herokuapp.com](http://geneticgallery.herokuapp.com/)!
+
 ## Table of Contents
 - [About](#about)
 - [Scripts and setup](#scripts-and-setup)
@@ -15,13 +17,13 @@ I also used this project to learn the [Jest](https://facebook.github.io/jest/) t
 <br>
 This project uses [CSS Modules](https://github.com/css-modules/css-modules). Styles are colocated with their respective components, and rules are brought into components through destructured imports. 
 
-## <a name="scripts-and-setup"></a> Scripts and setup
+## <a name="scripts-and-setup"></a> Scripts and local setup
 
 Make sure [Postgres](https://postgresapp.com/) is installed. This app will attempt to create a database named 'genetic-gallery.' The app will still run without Postgres, but you will not be able to submit and view created images. 
 
 From the project directory, you can use [yarn](https://yarnpkg.com/en/) or [npm](https://www.npmjs.com/) to run:
 
-### `npm install` + `npm start`
+### `npm install` + `npm start-dev`
 
 Runs the app in development mode.
 <br>
@@ -35,6 +37,8 @@ You will also see any lint errors in the console.
 ### `npm test`
 
 Launches an interactive test runner in the console.
+Type ```'a'``` in the runner to see all existing tests.
+
 This project uses [Jest](https://facebook.github.io/jest/), along with [Enzyme](https://github.com/airbnb/enzyme) to help with React Component testing.
 
 ### `npm run build`
