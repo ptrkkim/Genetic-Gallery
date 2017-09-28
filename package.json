@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "node installClient.js",
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "nodemon server/index.js",
+    "start-dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "npm run server",
+    "server": "node server/index.js",
     "client": "node startClient.js",
     "test": "node testClient.js",
     "build": "node client/scripts/build.js",
