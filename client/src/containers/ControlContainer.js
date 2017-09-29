@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PauseResumeClear from '../components/PauseResumeClear';
 import SubmitModal from './SubmitModal';
-import { container, title, para } from './styles/control.css';
-import { startBtn } from '../styles/buttons.css';
 import { showModal, hideModal } from '../reducers/modal';
+import { postOne } from '../reducers/gallery';
+import { startBtn } from '../styles/buttons.css';
+import { container, title, para } from './styles/control.css';
 
 class ControlContainer extends Component {
   constructor(props) {
@@ -55,6 +56,7 @@ class ControlContainer extends Component {
         originalSrc={originalSrc}
         artSrc={artSrc}
         closeModal={this.props.hideModal}
+        postOne={this.props.postOne}
       />
     );
 
@@ -87,7 +89,7 @@ class ControlContainer extends Component {
 }
 
 const mapStateToProps = state => ({ show: state.modal.show });
-const mapDispatchToProps = { showModal, hideModal };
+const mapDispatchToProps = { showModal, hideModal, postOne };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ControlContainer);
 
@@ -107,4 +109,5 @@ ControlContainer.propTypes = {
   showModal: PropTypes.func.isRequired,
   hideModal: PropTypes.func.isRequired,
   show: PropTypes.bool.isRequired,
+  postOne: PropTypes.func.isRequired,
 };

@@ -53,11 +53,12 @@ class SubmitModal extends Component {
       body,
     };
 
+    const { postOne, closeModal } = this.props;
     fetch('/api/images', options)
       .then(response => response.json())
-      .then((createdImage) => {
-        console.log('IMAGE!!!!', createdImage);
-        this.props.closeModal();
+      .then((imagePair) => {
+        postOne(imagePair);
+        closeModal();
       })
       .catch(err => console.error(err));
   }
@@ -92,6 +93,7 @@ class SubmitModal extends Component {
 
 SubmitModal.propTypes = {
   closeModal: PropTypes.func.isRequired,
+  postOne: PropTypes.func.isRequired,
   originalSrc: PropTypes.string.isRequired,
   artSrc: PropTypes.string.isRequired,
 };
