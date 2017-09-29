@@ -16,8 +16,15 @@ class ControlContainer extends Component {
     };
   }
 
+  // componentDidMount () {
+  //   if (this.props.population) {
+  //     this.start(this.props.population);
+  //     this.pause();
+  //   }
+  // }
+
   start = () => { // weird pattern, but allows state changes in multiple components
-    this.props.startEvo();
+    this.props.startEvo(this.props.population);
     this.setState({ isPlaying: true });
   }
 
@@ -46,7 +53,7 @@ class ControlContainer extends Component {
   }
 
   render () {
-    const { show, clearEvo, ticker, originalSrc, artSrc } = this.props;
+    const { show, clearEvo, population, originalSrc, artSrc } = this.props;
 
     const instructions1 = `Press Start to begin evolving a new, unique approximation of the original image.`; // eslint-disable-line 
     const instructions2 = `Click on the original image to upload your own.`; // eslint-disable-line 
@@ -70,7 +77,7 @@ class ControlContainer extends Component {
       />
     );
 
-    const startOrPauseResumeClear = ticker
+    const startOrPauseResumeClear = population
       ? prcComponent
       : <button className={startBtn} onClick={this.start}>START</button>;
 
@@ -94,10 +101,11 @@ const mapDispatchToProps = { showModal, hideModal, postOne };
 export default connect(mapStateToProps, mapDispatchToProps)(ControlContainer);
 
 ControlContainer.defaultProps = {
-  ticker: null,
+  population: null,
 };
 
 ControlContainer.propTypes = {
+  population: PropTypes.object, // eslint-disable-line
   startEvo: PropTypes.func.isRequired,
   pauseEvo: PropTypes.func.isRequired,
   resumeEvo: PropTypes.func.isRequired,
@@ -105,7 +113,6 @@ ControlContainer.propTypes = {
   setModalImages: PropTypes.func.isRequired,
   originalSrc: PropTypes.string.isRequired,
   artSrc: PropTypes.string.isRequired,
-  ticker: PropTypes.func,
   showModal: PropTypes.func.isRequired,
   hideModal: PropTypes.func.isRequired,
   show: PropTypes.bool.isRequired,
