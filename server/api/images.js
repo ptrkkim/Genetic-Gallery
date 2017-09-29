@@ -11,7 +11,7 @@ router.post('/', (req, res, next) => {
   const { title, artist, originalImg, artImg } = req.body;
 
   Image.submit(title, artist, originalImg, artImg)
-    .then(() => res.sendStatus(201))
+    .then(imageData => res.status(201).json(imageData))
     .catch(next);
 });
 

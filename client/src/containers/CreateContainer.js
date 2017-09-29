@@ -15,7 +15,7 @@ export default class CreateContainer extends Component {
       originalSrc: '',
       artSrc: '',
       size: 50,
-      polygonsPer: 100,
+      polygonsPer: 75,
       numVertices: 3,
       crossoverChance: 0.3,
       mutateChance: 0.01,
@@ -60,15 +60,15 @@ export default class CreateContainer extends Component {
   startEvolution = () => {
     // for performant offscreen rendering/fitness calculation
     const fullResolution = 300;
-    const fitResolution = 75;
+    const fitResolution = 125;
 
     const [refCanvas, fitCanvas, offCanvas] = makeCanvases(fitResolution, fullResolution);
     const [refCtx, fitCtx, offCtx] = getContexts([refCanvas, fitCanvas, offCanvas]);
     const outCtx = this.outCanvas.getContext('2d');
 
     // prep offscreen reference canvas for use in fitness calculations
-    // hardcode resolution to 75 x 75 for fast calculations
-    refCtx.drawImage(this.imgCanvas, 0, 0, 300, 300, 0, 0, 75, 75);
+    // hardcode resolution to 125 x 125 for fast calculations
+    refCtx.drawImage(this.imgCanvas, 0, 0, 300, 300, 0, 0, fitResolution, fitResolution);
 
     const population = new Population(
       this.state.size,
@@ -80,6 +80,7 @@ export default class CreateContainer extends Component {
       refCtx,
       fitCtx,
       outCtx,
+      fitResolution,
     );
 
     population.getFittest().draw(outCtx);

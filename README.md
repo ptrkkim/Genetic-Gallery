@@ -23,7 +23,7 @@ Make sure [Postgres](https://postgresapp.com/) is installed. This app will attem
 
 From the project directory, you can use [yarn](https://yarnpkg.com/en/) or [npm](https://www.npmjs.com/) to run:
 
-### `npm install` + `npm start-dev`
+### `npm install` + `npm run start-dev`
 
 Runs the app in development mode.
 <br>

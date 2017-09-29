@@ -3,6 +3,7 @@ const SORT_BY = 'SORT_BY';
 const ADD_IMAGES = 'ADD_IMAGES';
 const LOADING = 'LOADING';
 const NO_MORE = 'NO_MORE';
+const POST_ONE = 'POST_ONE';
 
 type image = {
   id: string,
@@ -24,6 +25,7 @@ type State = {
 // + denotes immutability
 type sortAction = { +type: 'SORT_BY', +images: image[], sortOrder: string };
 type addAction = { +type: 'ADD_IMAGES', +images: image[] };
+type postOneAction = { +type: 'POST_ONE', +image: image };
 type loadAction = { +type: 'LOADING' };
 type moreAction = { +type: 'NO_MORE' };
 
@@ -31,14 +33,21 @@ type Action =
   | sortAction
   | addAction
   | loadAction
-  | moreAction;
+  | moreAction
+  | postOneAction;
 
 export const sortBy = (images: image[], sortOrder: string): sortAction => (
   { type: SORT_BY, images, sortOrder }
 );
+
 export const addImages = (images: image[]): addAction => (
   { type: ADD_IMAGES, images }
 );
+
+export const postOne = (imagePair: image): postOneAction => (
+  { type: POST_ONE, image: imagePair }
+);
+
 export const loading = (): loadAction => ({ type: LOADING });
 export const noMoreImages = (): moreAction => ({ type: NO_MORE });
 
@@ -56,6 +65,7 @@ export const getMoreImages = (page: number, sortOrder: string) =>
       });
   };
 
+
 const initialState = {
   imagePairs: [],
   sortBy: 'new',
@@ -70,6 +80,13 @@ function galleryReducer (state: State = initialState, action: Action): State {
       return { ...state, isLoading: true };
     case NO_MORE:
       return { ...state, isLoading: false, hasMore: false };
+    case POST_ONE:
+      return {
+        ...state,
+        imagePairs: [],
+        sortBy: 'new',
+        page: 0,
+      };
     case SORT_BY:
       return {
         ...state,

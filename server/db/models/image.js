@@ -30,6 +30,16 @@ Image.submit = function(title, artist, originalImg, artImg) {
     }
   }, {
     include: [Original]
+  })
+  .then(image => {
+    return {
+      id: image.id,
+      title: image.title,
+      artist: image.artist,
+      artImg: image.image,
+      originalImg: image.original.image,
+      createdAt: image.createdAt,
+    };
   });
 };
 

@@ -25,6 +25,7 @@ export class Population {
     refCtx: CanvasRenderingContext2D,
     fitCtx: CanvasRenderingContext2D,
     outCtx: CanvasRenderingContext2D,
+    resolution: number,
   ) {
     this.polygonsPer = polygonsPer;
     this.numVertices = numVertices;
@@ -35,7 +36,7 @@ export class Population {
     this.refCtx = refCtx;
     this.fitCtx = fitCtx;
     this.outCtx = outCtx;
-    this.resolution = 75; // hardcode internal resolution for fitness calc
+    this.resolution = resolution; // resolution for fitness calc
   }
 
   initialize (size: number): Individual[] {
