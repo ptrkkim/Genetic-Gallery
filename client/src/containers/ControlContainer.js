@@ -16,13 +16,6 @@ class ControlContainer extends Component {
     };
   }
 
-  // componentDidMount () {
-  //   if (this.props.population) {
-  //     this.start(this.props.population);
-  //     this.pause();
-  //   }
-  // }
-
   start = () => { // weird pattern, but allows state changes in multiple components
     this.props.startEvo(this.props.population);
     this.setState({ isPlaying: true });
@@ -67,7 +60,7 @@ class ControlContainer extends Component {
       />
     );
 
-    const prcComponent = (
+    const pauseResumeClear = (
       <PauseResumeClear
         isPlaying={this.state.isPlaying}
         pause={this.pause}
@@ -78,7 +71,7 @@ class ControlContainer extends Component {
     );
 
     const startOrPauseResumeClear = population
-      ? prcComponent
+      ? pauseResumeClear
       : <button className={startBtn} onClick={this.start}>START</button>;
 
     return (

@@ -10,17 +10,17 @@ import { setTicker, setPop, setImages } from '../reducers/create';
 import { container } from './styles/create.css';
 
 class CreateContainer extends Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      size: 50,
-      polygonsPer: 75,
-      numVertices: 3,
-      crossoverChance: 0.3,
-      mutateChance: 0.01,
-      mutateAmount: 0.1,
-    };
-  }
+  // constructor (props) {
+  //   super(props);
+  //   // this.state = {
+  //   //   size: 50,
+  //   //   polygonsPer: 75,
+  //   //   numVertices: 3,
+  //   //   crossoverChance: 0.3,
+  //   //   mutateChance: 0.01,
+  //   //   mutateAmount: 0.1,
+  //   // };
+  // }
 
   componentDidMount () {
     const ogImage = new Image();
@@ -83,12 +83,12 @@ class CreateContainer extends Component {
     refCtx.drawImage(this.imgCanvas, 0, 0, 300, 300, 0, 0, fitResolution, fitResolution);
 
     const population = oldPopulation || new Population(
-      this.state.size,
-      this.state.polygonsPer,
-      this.state.numVertices,
-      this.state.crossoverChance,
-      this.state.mutateChance,
-      this.state.mutateAmount,
+      this.props.size,
+      this.props.polygonsPer,
+      this.props.numVertices,
+      this.props.crossoverChance,
+      this.props.mutateChance,
+      this.props.mutateAmount,
       refCtx,
       fitCtx,
       outCtx,
@@ -192,13 +192,25 @@ CreateContainer.propTypes = {
   setTicker: PropTypes.func.isRequired,
   setPop: PropTypes.func.isRequired,
   setImages: PropTypes.func.isRequired,
+  size: PropTypes.number.isRequired,
+  polygonsPer: PropTypes.number.isRequired,
+  numVertices: PropTypes.number.isRequired,
+  crossoverChance: PropTypes.number.isRequired,
+  mutateChance: PropTypes.number.isRequired,
+  mutateAmount: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = ({ create }) => ({
+const mapStateToProps = ({ create, advanced }) => ({
   ticker: create.ticker,
   population: create.population,
   originalSrc: create.originalSrc,
   artSrc: create.artSrc,
+  size: advanced.size,
+  polygonsPer: advanced.polygonsPer,
+  numVertices: advanced.numVertices,
+  crossoverChance: advanced.crossoverChance,
+  mutateChance: advanced.mutateChance,
+  mutateAmount: advanced.mutateAmount,
 });
 
 const mapDispatchToProps = {
