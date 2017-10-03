@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Slider from '../components/Slider';
 import { setSize, setPolygons, setVertices, setCrossover, setMutaChance, setMutaAmount } from '../reducers/advanced';
-import { container } from './styles/advanced.css';
+import { container, toggleable, settings, open } from './styles/advanced.css';
 // form/slider params put in redux, not local state
 // because i want them to persist even when component unmounts
 class AdvancedContainer extends Component {
@@ -19,6 +19,7 @@ class AdvancedContainer extends Component {
   }
 
   render () {
+    // obj with param/dispatch-func pairs
     const params = {
       size: this.props.setSize,
       polygonsPer: this.props.setPolygons,
@@ -28,9 +29,15 @@ class AdvancedContainer extends Component {
       mutateAmount: this.props.setMutaAmount,
     };
 
+    const caretSpan = this.state.show ? 'fa fa-caret-down' : 'fa fa-caret-up';
     return (
       <div className={container}>
-        <button type="button" onClick={this.toggle}>ADVANCED</button>
+        <div className={toggleable} onClick={this.toggle}>
+          <div className={this.state.show ? open : settings}>
+            <span>OPTIONS</span>
+            &nbsp;<span className={caretSpan} />
+          </div>
+        </div>
         {
           this.state.show &&
           Object.keys(params).map(param =>

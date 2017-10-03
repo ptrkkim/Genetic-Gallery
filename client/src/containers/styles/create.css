@@ -10,6 +10,8 @@
   flex-wrap: wrap;
 }
 
-.adv {
-
+@media (min-width: 975px) {
+  .adv {
+    margin-left: 320px;
+  }
 }
