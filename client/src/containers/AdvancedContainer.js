@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Slider from '../components/Slider';
 import { setSize, setPolygons, setVertices, setCrossover, setMutaChance, setMutaAmount } from '../reducers/advanced';
-
+import { container } from './styles/advanced.css';
 // form/slider params put in redux, not local state
 // because i want them to persist even when component unmounts
 class AdvancedContainer extends Component {
@@ -29,7 +29,7 @@ class AdvancedContainer extends Component {
     };
 
     return (
-      <div>
+      <div className={container}>
         <button type="button" onClick={this.toggle}>ADVANCED</button>
         {
           this.state.show &&

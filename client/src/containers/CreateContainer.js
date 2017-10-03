@@ -7,7 +7,7 @@ import Canvases from '../components/Canvases';
 import { Population } from '../algorithm/population';
 import { makeCanvases, getContexts, makeTicker } from './utils';
 import { setTicker, setPop, setImages } from '../reducers/create';
-import { container } from './styles/create.css';
+import { container, canvases, adv } from './styles/create.css';
 
 class CreateContainer extends Component {
   componentDidMount () {
@@ -143,22 +143,26 @@ class CreateContainer extends Component {
   render () {
     return (
       <div className={container}>
-        <ControlContainer
-          population={this.props.population}
-          startEvo={this.startEvolution}
-          pauseEvo={this.pauseEvolution}
-          resumeEvo={this.resumeEvolution}
-          clearEvo={this.clearEvolution}
-          setModalImages={this.setModalImages}
-          originalSrc={this.props.originalSrc}
-          artSrc={this.props.artSrc}
-        />
-        <Canvases
-          imgRefSetter={(imgCanvas) => { this.imgCanvas = imgCanvas; }}
-          outRefSetter={(outCanvas) => { this.outCanvas = outCanvas; }}
-          handleUpload={this.handleUpload}
-        />
-        <AdvancedContainer />
+        <div className={canvases}>
+          <ControlContainer
+            population={this.props.population}
+            startEvo={this.startEvolution}
+            pauseEvo={this.pauseEvolution}
+            resumeEvo={this.resumeEvolution}
+            clearEvo={this.clearEvolution}
+            setModalImages={this.setModalImages}
+            originalSrc={this.props.originalSrc}
+            artSrc={this.props.artSrc}
+          />
+          <Canvases
+            imgRefSetter={(imgCanvas) => { this.imgCanvas = imgCanvas; }}
+            outRefSetter={(outCanvas) => { this.outCanvas = outCanvas; }}
+            handleUpload={this.handleUpload}
+          />
+        </div>
+        <div className={adv}>
+          <AdvancedContainer />
+        </div>
       </div>
     );
   }

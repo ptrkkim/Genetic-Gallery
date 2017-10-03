@@ -1,5 +1,15 @@
 .container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.canvases {
+  display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.adv {
+
 }

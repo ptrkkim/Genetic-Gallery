@@ -1,0 +1,18 @@
+.container {
+  composes: container from './control.css';
+}
+
+/* .title {
+  composes: text from '../../styles/typography.css';
+  margin-top: 2px;
+}
+
+.para {
+  composes: text from '../../styles/typography.css';
+} */
+
+@media (min-width: 655px) and (max-width: 974px) {
+  .container {
+    width: 625px;
+  }
+}

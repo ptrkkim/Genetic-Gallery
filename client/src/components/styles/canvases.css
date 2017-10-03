@@ -1,7 +1,6 @@
 .container {
   display: flex;
   margin-top: 5px;
-  width: 640px;
   justify-content: center;
 }
 
