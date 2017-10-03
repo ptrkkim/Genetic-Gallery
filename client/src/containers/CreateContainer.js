@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ControlContainer from './ControlContainer';
-// import SubmissionContainer from './SubmissionContainer';
+import AdvancedContainer from './AdvancedContainer';
 import Canvases from '../components/Canvases';
 import { Population } from '../algorithm/population';
 import { makeCanvases, getContexts, makeTicker } from './utils';
@@ -10,18 +10,6 @@ import { setTicker, setPop, setImages } from '../reducers/create';
 import { container } from './styles/create.css';
 
 class CreateContainer extends Component {
-  // constructor (props) {
-  //   super(props);
-  //   // this.state = {
-  //   //   size: 50,
-  //   //   polygonsPer: 75,
-  //   //   numVertices: 3,
-  //   //   crossoverChance: 0.3,
-  //   //   mutateChance: 0.01,
-  //   //   mutateAmount: 0.1,
-  //   // };
-  // }
-
   componentDidMount () {
     const ogImage = new Image();
     ogImage.src = this.props.originalSrc;
@@ -110,9 +98,6 @@ class CreateContainer extends Component {
     // save these to store, so we can access them when navigating away and back
     this.props.setTicker(ticker);
     this.props.setPop(population);
-    // this.setState({ ticker }, () => {
-    //   this.interval = setInterval(this.state.ticker, 0);
-    // });
   }
 
   resumeEvolution = () => {
@@ -145,7 +130,6 @@ class CreateContainer extends Component {
     const file = event.target.files[0];
     reader.onload = (upload) => {
       this.props.setImages(upload.target.result, '');
-      // this.setState({ imageData: upload.target.result });
     };
 
     if (file) {
@@ -174,6 +158,7 @@ class CreateContainer extends Component {
           outRefSetter={(outCanvas) => { this.outCanvas = outCanvas; }}
           handleUpload={this.handleUpload}
         />
+        <AdvancedContainer />
       </div>
     );
   }
