@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { container, text, slider } from './styles/slider.css';
+import { container, text, slider, val } from './styles/slider.css';
 
 const types = {
   size: {
-    label: 'Population Size',
+    label: 'Population',
     min: 5,
     max: 100,
     step: 1,
@@ -52,7 +52,9 @@ const Slider = ({ param, value, handleChange }) => {
 
   return (
     <div className={container}>
-      <div className={text}>{label.toUpperCase()}</div>
+      <div className={text}>{label}</div>
+      <span className={val}>{value}</span>
+      &nbsp;
       <input
         className={slider}
         type="range"
