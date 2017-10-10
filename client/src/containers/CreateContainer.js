@@ -60,7 +60,7 @@ class CreateContainer extends Component {
   startEvolution = (oldPopulation) => {
     // for performant offscreen rendering/fitness calculation
     const fullResolution = 300;
-    const fitResolution = 125; // hardcode resolution to 125 x 125 for fast calculations
+    const fitResolution = this.props.fitResolution;
 
     const [refCanvas, fitCanvas, offCanvas] = makeCanvases(fitResolution, fullResolution);
     const [refCtx, fitCtx, offCtx] = getContexts([refCanvas, fitCanvas, offCanvas]);
@@ -187,6 +187,7 @@ CreateContainer.propTypes = {
   crossoverChance: PropTypes.number.isRequired,
   mutateChance: PropTypes.number.isRequired,
   mutateAmount: PropTypes.number.isRequired,
+  fitResolution: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = ({ create, advanced }) => ({
@@ -200,6 +201,7 @@ const mapStateToProps = ({ create, advanced }) => ({
   crossoverChance: advanced.crossoverChance,
   mutateChance: advanced.mutateChance,
   mutateAmount: advanced.mutateAmount,
+  fitResolution: advanced.fitResolution,
 });
 
 const mapDispatchToProps = {
