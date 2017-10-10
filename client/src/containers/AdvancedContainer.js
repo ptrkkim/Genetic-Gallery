@@ -40,8 +40,8 @@ class AdvancedContainer extends Component {
         </div>
         {
           this.state.show &&
-          Object.keys(params).map(param =>
-            (<Slider
+          Object.keys(params).map(param => (
+            <Slider
               param={param}
               value={this.props[param]}
               handleChange={evt => params[param](evt.target.value)}
