@@ -1,0 +1,52 @@
+.container {
+  margin: 15px 10px 10px 10px;
+  width: 625px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.toggleable {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -10px;
+  composes: fancy from '../../styles/typography.css';
+  font-size: 15px;
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+.open {
+  color: #303030;
+  cursor: pointer;
+}
+
+.settings {
+  color: #B4B4B4;
+  cursor: pointer;
+}
+
+.settings:hover {
+  color: #303030;
+}
+
+.settings:active {
+  color: #303030;
+}
+
+@media (max-width: 654px) {
+  .container {
+    width: 300px;
+  }
+}
+
