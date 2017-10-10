@@ -44,7 +44,7 @@ class AdvancedContainer extends Component {
             <Slider
               param={param}
               value={this.props[param]}
-              handleChange={evt => params[param](evt.target.value)}
+              handleChange={evt => params[param](+evt.target.value)}
             />))
         }
       </div>
