@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Slider from '../components/Slider';
-import { setSize, setPolygons, setVertices, setCrossover, setMutaChance, setMutaAmount } from '../reducers/advanced';
+import { setSize, setPolygons, setVertices, setCrossover, setMutaChance, setMutaAmount, setResolution } from '../reducers/advanced';
 import { container, toggleable, settings, open } from './styles/advanced.css';
 // form/slider params put in redux, not local state
 // because i want them to persist even when component unmounts
@@ -27,6 +27,7 @@ class AdvancedContainer extends Component {
       crossoverChance: this.props.setCrossover,
       mutateChance: this.props.setMutaChance,
       mutateAmount: this.props.setMutaAmount,
+      fitResolution: this.props.setResolution,
     };
 
     const caretSpan = this.state.show ? 'fa fa-caret-down' : 'fa fa-caret-up';
@@ -42,6 +43,7 @@ class AdvancedContainer extends Component {
           this.state.show &&
           Object.keys(params).map(param => (
             <Slider
+              key={param}
               param={param}
               value={this.props[param]}
               handleChange={evt => params[param](+evt.target.value)}
@@ -65,6 +67,7 @@ AdvancedContainer.propTypes = { // proptypes can't tell i'm accessing these via 
   setCrossover: PropTypes.func.isRequired,
   setMutaChance: PropTypes.func.isRequired,
   setMutaAmount: PropTypes.func.isRequired,
+  setResolution: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ advanced }) => ({
@@ -74,6 +77,7 @@ const mapStateToProps = ({ advanced }) => ({
   crossoverChance: advanced.crossoverChance,
   mutateChance: advanced.mutateChance,
   mutateAmount: advanced.mutateAmount,
+  fitResolution: advanced.fitResolution,
 });
 
 const mapDispatchToProps = {
@@ -83,6 +87,7 @@ const mapDispatchToProps = {
   setCrossover,
   setMutaChance,
   setMutaAmount,
+  setResolution,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdvancedContainer);
