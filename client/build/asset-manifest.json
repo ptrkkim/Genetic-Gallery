@@ -1,14 +1,7 @@
 {
-<<<<<<< HEAD
   "main.css": "static/css/main.e0f7a476.css",
   "main.css.map": "static/css/main.e0f7a476.css.map",
   "main.js": "static/js/main.b7e2b670.js",
   "main.js.map": "static/js/main.b7e2b670.js.map",
-=======
-  "main.css": "static/css/main.b9d798e1.css",
-  "main.css.map": "static/css/main.b9d798e1.css.map",
-  "main.js": "static/js/main.3a45ee26.js",
-  "main.js.map": "static/js/main.3a45ee26.js.map",
->>>>>>> e367c07a77af7a965a0c27ede740dcf6d8b4d15f
   "static/media/fullstack.png": "static/media/fullstack.d7ca98b4.png"
 }
